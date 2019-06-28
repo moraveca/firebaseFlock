@@ -6,14 +6,11 @@ class LogIn extends Component {
   state = {
     email: "",
     password: "",
-    user: {}
   };
 
   componentDidMount() {
       watchCurrentUser( (user) => {
-        this.setState({
-            user
-        })
+        this.props.setUser(user)
       })
   };
 
@@ -58,7 +55,7 @@ class LogIn extends Component {
     return (
       <div>
           
-        {!this.state.user.uid && <form className="form">
+        {!this.props.user.uid && <form className="form">
           <input
             value={this.state.email}
             name="email"
@@ -75,7 +72,7 @@ class LogIn extends Component {
           />
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>}
-        {this.state.user.uid && <button onClick={this.clickedSignOut}>Logout: {this.state.user.email}</button>}
+        {this.props.user.uid && <button onClick={this.clickedSignOut}>Logout: {this.props.user.email}</button>}
 
       </div>
     );
