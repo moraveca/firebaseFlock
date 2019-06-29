@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { watchCurrentUser } from "../../api/firebase/auth";
 import { db } from "../../api/firebase/index"
 
 
