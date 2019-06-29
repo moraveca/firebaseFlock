@@ -1,0 +1,56 @@
+.navbar .navbar-light .bg-light .navbar-expand{
+    font-weight: lighter;
+    color: black;
+}
+
+.navbar-brand {
+    font-weight: lighter;
+  }
+  .nav-item{
+    font-family: 'Thasadith', sans-serif;
+    color:black;
+  }
+  .collapse .navbar-collapse{
+    position:center;
+  }
+  .nav-link {
+    color:black;
+  }
+  .justify-content-end {
+  margin: 0 auto;
+  }
+.fakeimg {
+    width: 50%;
+    height: 50%;
+}
+.form-row label.placeholder,
+.form-row label.active {
+  transform: translateY(-140%);
+  font-size:0.8em;
+}
+
+.form-row textarea {
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  outline: 0;
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid #ced4da;
+  border-radius: 0;
+  box-sizing: content-box;
+  background-color: transparent;
+  overflow-y: hidden;
+  padding: 1.5rem 0;
+  resize: none;
+
+}
+footer {
+            position: absolute; 
+            margin: 20px;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            color: black;
+            text-align: center;
+            height: 2.5rem;
+          }
