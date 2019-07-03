@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
 
-class BulletinBoard extends Component {
+class seekingFamilyBoard extends Component {
 
     render() {
         return (
@@ -12,22 +12,24 @@ class BulletinBoard extends Component {
                     <NavBar />
 
                     <div className="card-body text-center">
-                        <h5 className="card-title">Volunteer Family Board</h5>
+                        <h5 className="card-title">Seeking Family Board</h5>
                         <p className="card-text" >
-                            <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
+                            <blockquote className="blockquote mb-0">
+                                <p>To us, family means putting your arms around each other and being there. –Barbara Bush</p>
+                                <footer className="blockquote-footer">To us, family means putting your arms around each other and being there. –Barbara Bush <cite title="Source Title"></cite></footer>
+                            </blockquote>
                         </p>
                         <br />
 
                         <button type="button" className="btn btn-outline-secondary">Return to your profile</button>
-                        &nbsp;&nbsp;&nbsp;
-                        <button type="button" className="btn btn-outline-secondary">Seeking Family Board</button>
+                        <button type="button" className="btn btn-outline-secondary">Volunteer Board</button>
                         <br />
                     </div>
                 </div>
                 <br />
                 <br />
                 <br />
-                {/* // <!--Availble Volunteer List--> */}
+                {/* // <!--Seeking Family List--> */}
                 <div className="container">
                     <div className="row">
                         <div className="col-sm">
@@ -35,7 +37,7 @@ class BulletinBoard extends Component {
                                 <div className="fakeimg">Add Image
                             </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
+                                    <h5 className="card-title">"Kid" Name</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     <a href="#" className="btn btn-primary">Contact Me</a>
                                 </div>
@@ -46,7 +48,7 @@ class BulletinBoard extends Component {
                                 <div className="fakeimg">Add Image
                             </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
+                                    <h5 className="card-title">"Kid" Name</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     <a href="#" className="btn btn-primary">Contact Me</a>
                                 </div>
@@ -57,7 +59,7 @@ class BulletinBoard extends Component {
                                 <div className="fakeimg">Add Image
                             </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
+                                    <h5 className="card-title">"Kid" Name</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     <a href="#" className="btn btn-primary">Contact Me</a>
                                 </div>
@@ -77,7 +79,7 @@ class BulletinBoard extends Component {
                                 <div className="fakeimg">Add Image
                               </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
+                                    <h5 className="card-title">"Kid" Name</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     <a href="#" className="btn btn-primary">Contact Me</a>
                                 </div>
@@ -88,7 +90,7 @@ class BulletinBoard extends Component {
                                 <div className="fakeimg">Add Image
                               </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
+                                    <h5 className="card-title">"Kid" Name</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     <a href="#" className="btn btn-primary">Contact Me</a>
                                 </div>
@@ -99,7 +101,7 @@ class BulletinBoard extends Component {
                                 <div className="fakeimg">Add Image
                               </div>
                                 <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
+                                    <h5 className="card-title">"Kid" Name</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     <a href="#" className="btn btn-primary">Contact Me</a>
                                 </div>
@@ -121,5 +123,4 @@ class BulletinBoard extends Component {
 
 
 
-export default BulletinBoard;
-
+export default seekingFamilyBoard;

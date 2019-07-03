@@ -20,8 +20,8 @@ function NavBar(props) {
                         Profile
         </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a className="dropdown-item" href="">Events</a>
-                        <a className="dropdown-item" href="">Matches</a>
+                        <a className="dropdown-item" href="">Volunteer Family Board</a>
+                        <a className="dropdown-item" href="">Seeking Family Board</a>
                     </div>
                 </li>
             </ul>
