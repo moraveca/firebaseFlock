@@ -7,6 +7,7 @@ import DevChat from "./devComponents/DevChat";
 import Profile from "./pages/Profile";
 import Homepage from "./pages/Homepage";
 import BulletinBoard from "./pages/BulletinBoard";
+import SeekingFamilyBoard from "./pages/seekingFamilyBoard";
 
 import DevProfiles from "./devComponents/DevProfiles";
 import DevMessages from "./devComponents/DevMessages";
@@ -21,7 +22,13 @@ function App() {
       <WatchUser setUser={setUser} />
       <div>
         <Switch>
-          <Route exact path="/" render={(props) => <DevLogIn {...props} user={user} setUser={setUser} />} />
+          <Route exact path="/profile" render={(props) => <Profile {...props} user={user} setUser={setUser} />} />
+          <Route exact path="/" render={(props) => <Homepage {...props} user={user} setUser={setUser} />} />
+
+          <Route exact path="/seekingboards" render={(props) => <SeekingFamilyBoard {...props} user={user} setUser={setUser} />} />
+
+
+          <Route exact path="/devlogin" render={(props) => <DevLogIn {...props} user={user} setUser={setUser} />} />
           <Route exact path="/form" render={(props) => <DevDetailForm {...props} user={user} />} />
           <Route exact path="/message" render={(props) => <DevChat {...props} user={user} />} />
 
