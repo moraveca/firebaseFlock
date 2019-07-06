@@ -24,6 +24,9 @@ function NavBar(props) {
                         <a className="dropdown-item" href="">Seeking Family Board</a>
                     </div>
                 </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="Resource.html">Resource Guide</a>
+                </li>
             </ul>
         </nav>
 
