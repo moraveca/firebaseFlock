@@ -1,9 +1,38 @@
 import React, { Component } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { db } from "../api/firebase/index"
+
 
 
 class BulletinBoard extends Component {
+
+    state = {
+        profiles: []
+    };
+
+    componentDidMount() {
+        this.loadProfiles();
+    };
+
+    loadProfiles = () => {
+
+        db.collection("users").limit(10).get().then(querySnapshot => {
+
+            const profileArray = [];
+
+            querySnapshot.forEach(doc => {
+                // doc.data() is never undefined for query doc snapshots
+                // console.log(doc.id, " => ", doc.data());
+                profileArray.push(doc.data())
+
+            });
+
+            console.log("profileArray: ", profileArray);
+            this.setState({ profiles: profileArray });
+            console.log("this.profiles: ", this.state.profiles)
+        });
+    };
 
     render() {
         return (
@@ -30,96 +59,42 @@ class BulletinBoard extends Component {
                 {/* // <!--Availble Volunteer List--> */}
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm">
-                            <div className="card" style={{width: "18rem"}}>
-                                <div className="fakeimg">Add Image
-                            </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" className="btn btn-primary">Contact Me</a>
+
+                        {this.state.profiles.length ? (
+
+                            this.state.profiles.map(profile => (
+
+                                <div className="col-sm">
+                                    <div className="card" style={{ width: "18rem" }}>
+                                        <div className="fakeimg">Add Image here</div>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
+                                            <p className="card-text">{profile.about}</p>
+                                            <a href="#" className="btn btn-primary">Contact Me</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-sm">
-                            <div className="card" style={{width: "18rem;"}}>
-                                <div className="fakeimg">Add Image
-                            </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" className="btn btn-primary">Contact Me</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm">
-                            <div className="card" style={{width: "18rem;"}}>
-                                <div className="fakeimg">Add Image
-                            </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" className="btn btn-primary">Contact Me</a>
-                                </div>
-                            </div>
-                        </div>
+                            ))
+
+                        ) : (
+                                <h3>No Results to Display</h3>
+                            )}
                     </div>
-                </div>
-
-                <br />
-                <br />
-                <br />
-
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm">
-                            <div className="card" style={{width: "18rem;"}}>
-                                <div className="fakeimg">Add Image
-                              </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" className="btn btn-primary">Contact Me</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm">
-                            <div className="card" style={{width: "18rem;"}}>
-                                <div className="fakeimg">Add Image
-                              </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" className="btn btn-primary">Contact Me</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm">
-                            <div className="card" style={{width: "18rem;"}}>
-                                <div className="fakeimg">Add Image
-                              </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Volunteer Name</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" className="btn btn-primary">Contact Me</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
-
-                <br />
-                <br />
-                <br />
-            
-                <Footer />
-            </div >
-        );
-    }
-}
 
 
+                    <br />
+                    <br />
+                    <br />
 
-
-export default BulletinBoard;
-
+                    <Footer />
+                </div >
+                );
+            }
+        }
+        
+        
+        
+        
+        export default BulletinBoard;
+        

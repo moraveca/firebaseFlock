@@ -8,12 +8,6 @@ class LogIn extends Component {
     password: "",
   };
 
-  componentDidMount() {
-      watchCurrentUser( (user) => {
-        this.props.setUser(user)
-      })
-  };
-
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;

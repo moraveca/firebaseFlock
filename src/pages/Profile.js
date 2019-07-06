@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { db } from "../api/firebase/index"
+
 import NavBar from "../components/NavBar";
 import DevLogIn from "../devComponents/DevLogIn";
 import ImageEditor from "../components/ImageEditor";
@@ -12,12 +14,84 @@ class Profile extends Component {
 
     constructor(props) {
         super(props);
-         this.state = { pictures: [] };
+         this.state = { 
+            pictures: [],
+            aboutFromFirebase: "",
+            about: "",
+         };
     }
- 
+
+    componentDidMount() {
+      this.checkingUser()
+      // this.loadAbout();
+  };
+
+  checkingUser = () => {
+    if (!this.props.user.uid) {
+    console.log("user: ", this.props.user);
+    console.log("setting timer");
+    setTimeout(this.checkingUser, 500)
+    } else {
+      this.loadAbout()
+    }
+
+  }
+
+  loadAbout = () => {
+
+    db.collection("users").doc(this.props.user.uid)
+    .onSnapshot(doc => {
+        console.log("Current data: ", doc.data());
+        this.setState({
+          aboutFromFirebase: doc.data().about
+        });
+        console.log("this.state.aboutFromFirebase: ", this.state.aboutFromFirebase)
+    });
+  };
+
+    // this is for pic upload
     onDrop = picture => this.setState({
             pictures: this.state.pictures.concat(picture),
         });
+
+
+
+      handleInputChange = event => {
+        // Getting the value and name of the input which triggered the change
+        let value = event.target.value;
+        const name = event.target.name;
+
+        if (name === "password") {
+            value = value.substring(0, 15);
+        }
+        // Updating the input's state
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleFormSubmit = event => {
+      // Preventing the default behavior of the form submit (which is to refresh the page)
+      event.preventDefault();
+      
+      db.collection("users").doc(this.props.user.uid).update({
+          about: this.state.about
+      })
+      .then(function() {
+          console.log("Document successfully written!");
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+
+      this.setState({
+          firstName: "",
+          lastName: "",
+          location: "",
+          about: "",
+            });
+
+  };
     
 
 
@@ -76,20 +150,33 @@ class Profile extends Component {
                 <div className="col-sm-8">
                   <h2>About Me</h2>
                   <br />
-                  <div contenteditable="true">
-              This text can be edited by the user when they edit bio section.
-            </div>
-            <div id="example-one" contenteditable="true">
+            {/* <input
+                        value={this.state.firstName}
+                        name="firstName"
+                        onChange={this.handleInputChange}
+                        type="text"
+                        placeholder="First Name"
+                    /> */}
+
+                    <div id="example-one">
+                        {this.state.aboutFromFirebase}
+                    </div>
+
+            <form id="example-one">
             {/* <style scoped>
               #example-one { margin-bottom: 10px; }
               [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
               [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
             </style> */}
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco. </p>
-              <code>HTML5</code>
-            </div>
+            <input value={this.state.about}
+              name="about"
+              onChange={this.handleInputChange}
+              type="text"
+              placeholder="Tell us about yourself!">
+            </input>
+            <button onClick={this.handleFormSubmit}>Submit Changes</button>
+
+            </form>
               
                   <br />
                   <h2>How I can help.</h2>
