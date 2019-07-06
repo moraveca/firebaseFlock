@@ -57,29 +57,13 @@ class Homepage extends Component {
         console.log("selectedOption: ", this.state.selectedOption);
 
 
-        createLogin(this.state.email, this.state.password);
-
+        this.logInFirst(this.thenSetProfile);
+ 
         this.setState({
             email: "",
             password: ""
         });
 
-        // this part should set firestore profile, but I think it's going
-        //  too early, or before a user is set, and is breaking
-        // db.collection("users").doc(this.props.user.uid).set({
-        //     uid: this.props.user.uid,
-        //     email: this.props.user.email,
-        //     firstName: this.state.firstName,
-        //     lastName: this.state.lastName,
-        //     selectedOption: this.state.selectedOption,
-        //     about: ""
-        // })
-        // .then(function() {
-        //     console.log("Document successfully written!");
-        // })
-        // .catch(function(error) {
-        //     console.error("Error adding document: ", error);
-        // });
 
     };
 
@@ -87,6 +71,36 @@ class Homepage extends Component {
     //       event.preventDefault();
     //       signOut();
     //   }
+    logInFirst = cb => {
+        createLogin(this.state.email, this.state.password);
+        cb();
+    }
+
+    thenSetProfile = () => {
+        if (!this.props.user.uid) {
+            console.log("setting timer");
+            setTimeout(this.thenSetProfile, 500)
+            
+        } else {
+            console.log("this.props.user: ", this.props.user)
+
+            db.collection("users").doc(this.props.user.uid).set({
+                uid: this.props.user.uid,
+                email: this.props.user.email,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                selectedOption: this.state.selectedOption,
+                about: ""
+            })
+                .then(function () {
+                    console.log("Document successfully written!");
+                })
+                .catch(function (error) {
+                    console.error("Error adding document: ", error);
+                });
+           }
+        
+    }
 
 
 
