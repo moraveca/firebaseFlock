@@ -34,10 +34,10 @@ class Profile extends Component {
     } else {
       this.loadAbout()
     }
-
-  }
+  };
 
   loadAbout = () => {
+    console.log("user: ", this.props.user);
 
     db.collection("users").doc(this.props.user.uid)
     .onSnapshot(doc => {

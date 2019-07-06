@@ -1,15 +1,50 @@
 import React, { Component } from "react";
+import Modal from 'react-modal';
+
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { db } from "../api/firebase/index"
+import { db } from "../api/firebase/index";
+import { database } from "../api/firebase/index";
+
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#root')
 
 
 
 class BulletinBoard extends Component {
 
-    state = {
-        profiles: []
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            profiles: [],
+            modalIsOpen: false,
+            message: "",
+            receiver: ""
+        };
+
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+
+    // state = {
+    //     profiles: [],
+    //     modalIsOpen: false
+
+    // };
 
     componentDidMount() {
         this.loadProfiles();
@@ -34,11 +69,109 @@ class BulletinBoard extends Component {
         });
     };
 
+    handleInputChange = event => {
+        // Getting the value and name of the input which triggered the change
+        let value = event.target.value;
+        const name = event.target.name;
+
+        // Updating the input's state
+        this.setState({
+            [name]: value
+        });
+    };
+
+
+    handleButtonClick = event => {
+        console.log("button value: ", event.target.value);
+        this.setState({
+            receiver: event.target.value
+        })
+        this.openModal();
+    }
+
+    openModal = () => {
+        this.setState({ modalIsOpen: true });
+    }
+
+    afterOpenModal = () => {
+        // references are now sync'd and can be accessed.
+        // this.subtitle.style.color = '#f00';
+    }
+
+    closeModal = () => {
+        this.setState({ modalIsOpen: false });
+    }
+
+    handleFormSubmit = event => {
+
+        event.preventDefault();
+
+        const sender = this.props.user.uid;
+        const receiver = this.state.receiver;
+        const message = this.state.message;
+        let senderFirstName = "";
+        let senderLastName = "";
+
+        db.collection("users").doc(sender).
+            get().then(function(doc) {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                senderFirstName = doc.data().firstName;
+                senderLastName = doc.data().lastName
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+        
+
+        console.log("sender.uid: ", sender);
+        console.log("sender name: ", senderFirstName, senderLastName);
+        console.log("receiver.uid: ", receiver);
+        console.log("message: ", message);
+
+        
+
+        database.ref("messages/" + receiver).push({
+            senderID: sender,
+            senderFirstName: senderFirstName,
+            senderLastName: senderLastName,
+            message: message
+        });
+
+        this.closeModal();
+
+    }
+
+
+
     render() {
         return (
             <div>
                 <div>
                     <NavBar />
+
+                    <Modal
+                        isOpen={this.state.modalIsOpen}
+                        onAfterOpen={this.afterOpenModal}
+                        onRequestClose={this.closeModal}
+                        style={customStyles}
+                        contentLabel="Example Modal"
+                    >
+                        <form>
+                            <input
+                                value={this.state.message}
+                                name="message"
+                                onChange={this.handleInputChange}
+                                type="text"
+                                placeholder="Write message here..."
+                            />
+
+                            <button onClick={this.handleFormSubmit}>Send message!</button>
+                        </form>
+                    </Modal>
 
                     <div className="card-body text-center">
                         <h5 className="card-title">Volunteer Family Board</h5>
@@ -70,7 +203,13 @@ class BulletinBoard extends Component {
                                         <div className="card-body">
                                             <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
                                             <p className="card-text">{profile.about}</p>
-                                            <a href="#" className="btn btn-primary">Contact Me</a>
+                                            <button
+                                                value={profile.uid}
+                                                // button onClick={this.deleteRow.bind(this, id)}
+                                                // button onClick={(e) => this.deleteRow(id, e)}
+                                                onClick={this.handleButtonClick}
+                                                className="btn btn-primary"
+                                            >Contact Me</button>
                                         </div>
                                     </div>
                                 </div>
@@ -80,21 +219,21 @@ class BulletinBoard extends Component {
                                 <h3>No Results to Display</h3>
                             )}
                     </div>
-                    </div>
+                </div>
 
 
-                    <br />
-                    <br />
-                    <br />
+                <br />
+                <br />
+                <br />
 
-                    <Footer />
-                </div >
-                );
-            }
-        }
-        
-        
-        
-        
-        export default BulletinBoard;
-        
+                <Footer />
+            </div >
+        );
+    }
+}
+
+
+
+
+export default BulletinBoard;
+

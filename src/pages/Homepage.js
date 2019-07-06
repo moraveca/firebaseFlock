@@ -1,22 +1,60 @@
 import React, { Component } from "react";
+import Modal from 'react-modal';
+
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import SignUp from "../components/SignUp";
 import { createLogin, signIn, watchCurrentUser, signOut } from "../api/firebase/auth";
-import { db } from "../api/firebase/index"
+import { db } from "../api/firebase/index";
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+Modal.setAppElement('#root')
 
 
 
 class Homepage extends Component {
 
-    state = {
-        email: "",
-        password: "",
-        passwordCheck: "",
-        firstName: "",
-        lastName: "",
-        selectedOption: "seeking"
+    constructor() {
+        super();
+
+        this.state = {
+            email: "",
+            password: "",
+            passwordCheck: "",
+            firstName: "",
+            lastName: "",
+            selectedOption: "seeking",
+            modalIsOpen: false,
+        };
+
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     };
+
+    openModal = () => {
+        this.setState({ modalIsOpen: true });
+
+    }
+
+    afterOpenModal = () => {
+        // references are now sync'd and can be accessed.
+        // this.subtitle.style.color = '#f00';
+    }
+
+    closeModal = () => {
+        this.setState({ modalIsOpen: false });
+    }
 
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
@@ -38,6 +76,12 @@ class Homepage extends Component {
         });
     };
 
+    handleSignIn = event => {
+        event.preventDefault();
+        signIn(this.state.email, this.state.password)
+
+    }
+
     handleFormSubmit = event => {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
@@ -56,9 +100,8 @@ class Homepage extends Component {
         console.log("lastName: ", this.state.lastName);
         console.log("selectedOption: ", this.state.selectedOption);
 
-
         this.logInFirst(this.thenSetProfile);
- 
+
         this.setState({
             email: "",
             password: ""
@@ -66,6 +109,11 @@ class Homepage extends Component {
 
 
     };
+
+    handleButtonClick = event => {
+        // event.preventDefault();
+        this.openModal();
+    }
 
     //   clickedSignOut = event => {
     //       event.preventDefault();
@@ -80,7 +128,7 @@ class Homepage extends Component {
         if (!this.props.user.uid) {
             console.log("setting timer");
             setTimeout(this.thenSetProfile, 500)
-            
+
         } else {
             console.log("this.props.user: ", this.props.user)
 
@@ -98,8 +146,8 @@ class Homepage extends Component {
                 .catch(function (error) {
                     console.error("Error adding document: ", error);
                 });
-           }
-        
+        }
+
     }
 
 
@@ -111,6 +159,46 @@ class Homepage extends Component {
                 <div>
                     <div className="card text-center">
                         <NavBar />
+
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            onAfterOpen={this.afterOpenModal}
+                            onRequestClose={this.closeModal}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+
+
+                            <div className="card" id="login-box">
+                                <div className="card-body">
+                                    <p className="card-title"><strong>Log in here</strong></p>
+                                    <div id="email-header">Email address</div>
+                                    <input
+                                        value={this.state.email}
+                                        onChange={this.handleInputChange}
+                                        type="email"
+                                        name="email"
+                                        className="box"
+                                        required />
+                                    <div id="password-header">Password</div>
+                                    <input
+                                        value={this.state.password}
+                                        onChange={this.handleInputChange}
+                                        type="password"
+                                        name="password"
+                                        className="box"
+                                        required />
+                                    <div id="enter-box">
+                                        <br />
+                                        <button
+                                            onClick={this.handleSignIn}
+                                            href="#"
+                                            className="btn btn-primary">Enter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </Modal>
+
                         <div className="card-body" id="logo-and-blurb">
                             <a className="navbar-brand" href="index.html" id="logo">
 
@@ -119,7 +207,7 @@ class Homepage extends Component {
                             <h5 className="card-title"></h5>
                             <p className="card-text">An app that links volunteer family and those seeking family.</p>
                         </div>
-                        <div className="card" id="login-box">
+                        {/* <div className="card" id="login-box">
                             <div className="card-body">
                                 <p className="card-title"><strong>Already a member? Log in here.</strong></p>
                                 <div id="email-header">Email address</div>
@@ -130,7 +218,7 @@ class Homepage extends Component {
                                     <a href="#" className="btn btn-primary">Enter</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="form_wrapper">
@@ -220,11 +308,11 @@ class Homepage extends Component {
                                         type="submit"
                                         onClick={this.handleFormSubmit}
                                         value="Register" />
-                                    <p className="change_link">
-                                        Already a member ?
-                    <a href="#tologin" className="to_register"> Go and log in </a>
-                                    </p>
                                 </form>
+                                <p className="change_link">
+                                    Already a member ?
+                                <a href="#" onClick={this.handleButtonClick} className="to_register"> Go and log in </a>
+                                </p>
                             </div>
                         </div>
                     </div>

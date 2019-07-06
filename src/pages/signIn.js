@@ -4,7 +4,8 @@ import Footer from "../components/Footer";
 
 
 
-class Homepage extends Component {
+
+class SignIn extends Component {
 
     render() {
         return (
@@ -41,3 +42,5 @@ class Homepage extends Component {
         );
     }
 }
+
+export default SignIn;

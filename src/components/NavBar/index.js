@@ -10,22 +10,22 @@ function NavBar(props) {
 
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link active" href="index.html">Home</a>
+                    <a className="nav-link active" href="/">Home</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="Flock.html">About</a>
+                    <a className="nav-link" href="/bulletin">Bulletin Board</a>
                 </li>
                 <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Profile
         </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a className="dropdown-item" href="">Volunteer Family Board</a>
-                        <a className="dropdown-item" href="">Seeking Family Board</a>
+                        <a className="dropdown-item" href="/profile">My Profile</a>
+                        <a className="dropdown-item" href="/messages">Messages</a>
                     </div>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="Resource.html">Resource Guide</a>
+                    <a className="nav-link" href="/resources">Resource Guide</a>
                 </li>
             </ul>
         </nav>
