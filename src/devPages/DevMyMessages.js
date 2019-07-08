@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { database } from "../api/firebase/index";
 
+
 class DevMyMessages extends Component {
     // Setting the component's initial state
     state = {
-        messages: []
+        messages: [],
     };
 
     componentDidMount() {
@@ -32,27 +33,13 @@ class DevMyMessages extends Component {
             if (!messages) {
                 return
             } else {
-            console.log("messages: ", messages);
 
+            console.log("messages: ", messages);
             const messagesArray = Object.entries(messages);
             console.log("messagesArray: ", messagesArray);
 
             this.setState({ messages: messagesArray });
             }
-
-
-            // const postsArray = [];
-
-            // snapshot.forEach(childSnapshot => {
-            //     var childKey = childSnapshot.key;
-            //     var childData = childSnapshot.val();
-            //     console.log("childKey: ", childKey);
-            //     console.log("childData: ", childData);
-            //     postsArray.push(childData);
-            // });
-
-            // console.log("postsArray: ", postsArray);
-            // this.setState({ posts: postsArray })
 
         })
     }
@@ -67,7 +54,7 @@ class DevMyMessages extends Component {
                     <list>
                         {this.state.messages.map(post => (
                             <h2>
-                                {post[1].message} by {post[1].sender}
+                                {post[1].message} by {post[1].senderFirstName} {post[1].senderLastName}
                             </h2>
                         ))}
 

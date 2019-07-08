@@ -116,8 +116,24 @@ class BulletinBoard extends Component {
             get().then(function(doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data());
+                console.log("document data firstname: ", doc.data().firstName)
                 senderFirstName = doc.data().firstName;
-                senderLastName = doc.data().lastName
+                senderLastName = doc.data().lastName;
+
+                console.log("sender.uid: ", sender);
+                console.log("sender name: ", senderFirstName);
+                console.log("receiver.uid: ", receiver);
+                console.log("message: ", message);
+        
+                
+        
+                database.ref("messages/" + receiver).push({
+                    senderID: sender,
+                    senderFirstName: senderFirstName,
+                    senderLastName: senderLastName,
+                    message: message
+                });
+                
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
@@ -125,23 +141,11 @@ class BulletinBoard extends Component {
         }).catch(function(error) {
             console.log("Error getting document:", error);
         });
-        
-
-        console.log("sender.uid: ", sender);
-        console.log("sender name: ", senderFirstName, senderLastName);
-        console.log("receiver.uid: ", receiver);
-        console.log("message: ", message);
-
-        
-
-        database.ref("messages/" + receiver).push({
-            senderID: sender,
-            senderFirstName: senderFirstName,
-            senderLastName: senderLastName,
-            message: message
-        });
 
         this.closeModal();
+
+        
+
 
     }
 
