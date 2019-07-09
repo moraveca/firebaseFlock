@@ -43,6 +43,7 @@ class Homepage extends Component {
     };
 
     openModal = () => {
+        console.log("open modal")
         this.setState({ modalIsOpen: true });
 
     }

@@ -4,19 +4,11 @@ import "./style.css";
 function NavBar(props) {
     return (
 
-            {/* <div>display: {!props.user.displayName ? 
-                            console.log("nope") :
-
-                console.log("props: ", props.user.displayName) 
-                }
-                
-            {/* <img href={href}></img> */}
-            {/* </div> */}
 
       <nav className="navbar navbar-light bg-light .navbar-expand{-sm|-md|-lg|-xl">
       <a className="navbar-brand" href="index.html">
       <img src="Flock-transparent.png" width="10%" height="20%" alt="" /></a>
-        <ul className="nav justify-content-end">
+        <ul className="nav justify-content-end" >
               <li className="nav-item">
                 <a className="nav-link active" href="index.html">Home</a>
               </li>
@@ -32,8 +24,6 @@ function NavBar(props) {
                         <a className="dropdown-item" href="">Seeking Family Board</a>
                       </div>
                     </li>
-                    </div>
-                </li>
                 <li className="nav-item">
                     <a className="nav-link" href="/resources">Resource Guide</a>
                 </li>

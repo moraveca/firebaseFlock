@@ -5,7 +5,7 @@ import Profile from "./pages/Profile";
 import Homepage from "./pages/Homepage";
 import BulletinBoard from "./pages/BulletinBoard";
 import SeekingFamilyBoard from "./pages/seekingFamilyBoard";
-import SignIn from "./pages/SignIn";
+// import SignIn from "./pages/SignIn";
 import MessageBoard from "./pages/MessageBoard";
 
 import DevProfiles from "./devComponents/DevProfiles";
@@ -36,7 +36,7 @@ function App() {
 
           <Route exact path="/seekingboards" render={(props) => <SeekingFamilyBoard {...props} user={user} setUser={setUser} />} />
 
-          <Route exact path="/signin" render={(props) => <SignIn {...props} user={user} />} />
+          {/* <Route exact path="/signin" render={(props) => <SignIn {...props} user={user} />} /> */}
 
           <Route exact path="/devlogin" render={(props) => <DevLogIn {...props} user={user} setUser={setUser} />} />
           <Route exact path="/form" render={(props) => <DevDetailForm {...props} user={user} />} />
