@@ -45,7 +45,6 @@ class Homepage extends Component {
     openModal = () => {
         console.log("open modal")
         this.setState({ modalIsOpen: true });
-
     }
 
     afterOpenModal = () => {
@@ -181,7 +180,7 @@ class Homepage extends Component {
             <div>
                 <div>
                     <div className="card text-center">
-                        <NavBar />
+                        {/* <NavBar /> */}
 
                         <Modal
                             isOpen={this.state.modalIsOpen}
@@ -190,6 +189,7 @@ class Homepage extends Component {
                             style={customStyles}
                             contentLabel="Example Modal"
                         >
+                        
 
 
                             <div className="card" id="login-box">
