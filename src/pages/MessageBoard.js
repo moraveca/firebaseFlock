@@ -13,7 +13,9 @@ class MessageBoard extends Component {
             messageList: [],
             messagesToDisplay: [],
             chattingName: "",
-            chattingURL: ""
+            chattingURL: "",
+            chattingUID: "",
+            chatWindowIsOpen: false
         };
     }
 
@@ -109,36 +111,39 @@ class MessageBoard extends Component {
     openChat = event => {
         console.log(event.target);
         const senderPicture = event.target.attributes.photoURL.nodeValue;
-        console.log("senderPicture: ", senderPicture);
+        // console.log("senderPicture: ", senderPicture);
         const senderName = event.target.name;
-        console.log("senderName: ", senderName);
+        // console.log("senderName: ", senderName);
+        const chattingUID = event.target.value;
+        console.log("chattingUID: ", chattingUID)
 
         this.setState({
             chattingName: senderName,
-            chattingURL: senderPicture
+            chattingURL: senderPicture,
+            chattingUID: chattingUID
         })
 
 
         const senderUID = event.target.value;
-        console.log("button value: ", senderUID);
+        // console.log("button value: ", senderUID);
         const userUID = this.props.user.uid;
-        console.log("user uid: ", userUID);
+        // console.log("user uid: ", userUID);
 
         const query = "/messages/" + userUID + "/" + senderUID;
-        console.log("query: ", query)
+        // console.log("query: ", query)
 
         database.ref(query).on("value", snapshot => {
 
             const messages = snapshot.val();
-            console.log("snapshot: ", messages);
+            // console.log("snapshot: ", messages);
 
             const chatsToState = [];
 
             const messagesArray = Object.entries(messages);
-            console.log("messagesArray: ", messagesArray);
+            // console.log("messagesArray: ", messagesArray);
 
             messagesArray.forEach(message => {
-                console.log("message: ", message[1])
+                // console.log("message: ", message[1])
 
                 if (message[1].senderID != this.props.user.uid) {
                     const chatToDisplay = {
@@ -163,28 +168,86 @@ class MessageBoard extends Component {
 
                 }
 
-                console.log("chatsToState: ", chatsToState)
+                // console.log("chatsToState: ", chatsToState)
                 this.setState({
-                    messageList: chatsToState
+                    messageList: chatsToState,
+                    messages: messagesArray,
+                    chatWindowIsOpen: true
                 });
-
-                console.log("this.state.messageList: ", this.state.messageList)
-
-                this.setState({ messages: messagesArray });
-
             })
-
         })
-
     }
 
     _onMessageWasSent(message) {
-        this.setState({
-            messageList: [...this.state.messageList, message]
-        })
+        console.log("message: ", message);
+
+        const userUID = this.props.user.uid;
+        console.log("userUID: ", userUID);
+        const receiverUID = this.state.chattingUID;
+        console.log("receiverUID: ", receiverUID);
+        let userFirstName = "";
+        let userLastName = "";
+
+        const docRef = db.collection("users").doc(userUID)
+
+        docRef.get().then(doc => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                userFirstName = doc.data().firstName;
+                userLastName = doc.data().lastName;
+                console.log("userFirstName: ", userLastName);
+                console.log("userLastName: ", userFirstName);
+
+                const query = "/messages/" + userUID + "/" + receiverUID;
+                console.log("query: ", query);
+        
+        
+                const messageToSend = {
+                    message: message.data.text,
+                    senderFirstName: userFirstName,
+                    senderID: userUID,
+                    senderLastName: userLastName
+                };
+
+                console.log("messageToSend: ", messageToSend)
+        
+                // database.ref(query).push()
+                database.ref(query).push({
+                    message: message.data.text,
+                    senderFirstName: userFirstName,
+                    senderID: userUID,
+                    senderLastName: userLastName
+                  }, error => {
+                    if (error) {
+                      // The write failed...
+                    } else {
+                      // Data saved successfully!
+                    }
+                  });
+                
+        
+        
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(error => {
+            console.log("Error getting document:", error);
+        });
+
+
+
+
+
+
+        // this.setState({
+        //     messageList: [...this.state.messageList, message]
+        // })
     }
 
     _sendMessage(text) {
+
+
         if (text.length > 0) {
             this.setState({
                 messageList: [...this.state.messageList, {
@@ -225,8 +288,21 @@ class MessageBoard extends Component {
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
-    }
+    };
 
+
+
+    closeChat = () => {
+        if (!this.state.chatWindowIsOpen) {
+            this.setState({
+                chatWindowIsOpen: true
+            })
+        } else {
+            this.setState({
+                chatWindowIsOpen: false
+            })
+        }
+    }
 
 
 
@@ -265,7 +341,9 @@ class MessageBoard extends Component {
                     }}
                     onMessageWasSent={this._onMessageWasSent.bind(this)}
                     messageList={this.state.messageList}
-                    showEmoji
+                    showEmoji={false}
+                    handleClick={this.closeChat}
+                    isOpen={this.state.chatWindowIsOpen}
                 />
 
             </div>
