@@ -1,24 +1,30 @@
-.navbar .navbar-light .bg-light .navbar-expand{
-    font-weight: lighter;
-    color: black;
-}
 
+
+/* NAVBAR */
+
+.nav-item{
+  font-family: 'Thasadith', sans-serif;
+  color:black;
+}
+.collapse .navbar-collapse{
+  position:center;
+}
+.nav-link {
+  color:black;
+}
+.justify-content-end {
+  margin-top: -400px;
+margin: 0 auto;
+}
 .navbar-brand {
-    font-weight: lighter;
+
+  padding-left: 20px;
+  font-weight: lighter;
+  position: fixed;
   }
-  .nav-item{
-    font-family: 'Thasadith', sans-serif;
-    color:black;
-  }
-  .collapse .navbar-collapse{
-    position:center;
-  }
-  .nav-link {
-    color:black;
-  }
-  .justify-content-end {
-  margin: 0 auto;
-  }
+
+
+ 
 .fakeimg {
     width: 50%;
     height: 50%;
@@ -49,7 +55,6 @@ footer {
             left: 0;
             bottom: 0;
             width: 100%;
-            background-color: white;
             color: black;
             text-align: center;
             height: 2.5rem;
