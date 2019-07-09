@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../api/firebase/index"
+import { db, storage } from "../api/firebase/index"
 
 import NavBar from "../components/NavBar";
 import DevLogIn from "../devComponents/DevLogIn";
@@ -27,7 +27,7 @@ class Profile extends Component {
     constructor(props) {
         super(props);
          this.state = { 
-            pictures: [],
+            picture: "",
             aboutFromFirebase: "",
             about: "",
          };
@@ -35,8 +35,7 @@ class Profile extends Component {
 
     componentDidMount() {
       this.checkingUser()
-      // this.loadAbout();
-  };
+    };
 
   checkingUser = () => {
     if (!this.props.user.uid) {
@@ -44,12 +43,21 @@ class Profile extends Component {
     console.log("setting timer");
     setTimeout(this.checkingUser, 500)
     } else {
+      this.loadPicture();
       this.loadAbout()
     }
+  };
 
+  loadPicture = () => {
+    if (this.props.user.photoURL) {
+      this.setState({
+      picture: this.props.user.photoURL
+    });
+  }
   }
 
   loadAbout = () => {
+    console.log("user: ", this.props.user);
 
     db.collection("users").doc(this.props.user.uid)
     .onSnapshot(doc => {
@@ -57,14 +65,66 @@ class Profile extends Component {
         this.setState({
           aboutFromFirebase: doc.data().about
         });
-        console.log("this.state.aboutFromFirebase: ", this.state.aboutFromFirebase)
     });
   };
 
     // this is for pic upload
-    onDrop = picture => this.setState({
-            pictures: this.state.pictures.concat(picture),
+    onDrop = picture => {
+      
+      // console.log("picture: ", picture);
+      const file = picture[0];
+      console.log("file: ", file);
+
+      const storageRef = storage.ref();
+
+      const imagesRef = storageRef.child("images");
+      const spaceRef = storageRef.child("images/" + file.name);
+
+      spaceRef.put(file).then(snapshot => {
+        console.log('Uploaded a blob or file!');
+        snapshot.ref.getDownloadURL().then(downloadURL => {
+          console.log('File available at', downloadURL);
+      
+     
+    const user = this.props.user;
+
+      user.updateProfile({
+        photoURL: downloadURL
+      }).then(() => {
+        if (user != null) {
+          user.providerData.forEach(profile => {
+            console.log("Sign-in provider: " + profile.providerId);
+            console.log("  Provider-specific UID: " + profile.uid);
+            console.log("  Name: " + profile.displayName);
+            console.log("  Email: " + profile.email);
+            console.log("  Photo URL: " + profile.photoURL);
+          });
+
+          this.setState({
+            picture: this.props.user.photoURL
+          });
+
+          db.collection("users").doc(this.props.user.uid).update({
+            pictureURL: this.state.picture
+        })
+        .then(function() {
+            console.log("PictureURL successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
         });
+
+        }
+        // Update successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
+
+    });
+  });
+
+     
+    }
 
 
 
@@ -149,13 +209,19 @@ class Profile extends Component {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-sm-4">
-                    <ImageUploader
-                      withIcon={true}
-                    buttonText='Choose images'
-                      onChange={this.onDrop}
-                   imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-            />
+
+                {this.state.picture === "" &&
+                  <ImageUploader
+                  withIcon={true}
+                  buttonText='Choose images'
+                  onChange={this.onDrop}
+                  imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
+                  maxFileSize={5242880}
+                  />}
+                {this.state.picture != "" &&
+                  <img src={this.state.picture} alt="Profile Pic"></img>
+                }
+
                   <br />
                   <br />
                   <h2 class="display-8">Personal Links:</h2>
