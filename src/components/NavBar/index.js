@@ -23,6 +23,11 @@ function NavBar(props) {
                         <a className="dropdown-item" href="">Seeking Family Board</a>
                       </div>
                     </li>
+                    </div>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="Resource.html">Resource Guide</a>
+                </li>
             </ul>
             <nav className="navbar navbar-light bg-light" >
                 <form className="form-inline" action="Resource.html">

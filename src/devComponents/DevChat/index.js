@@ -5,16 +5,7 @@ import { database } from "../../api/firebase/index";
 class Chat extends Component {
     // Setting the component's initial state
     state = {
-        user: {},
         message: ""
-    };
-
-    componentDidMount() {
-        watchCurrentUser((user) => {
-            this.setState({
-                user
-            })
-        });
     };
 
     handleInputChange = event => {
@@ -32,11 +23,11 @@ class Chat extends Component {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
 
-        console.log("user: ", this.state.user.email);
+        console.log("user: ", this.props.user);
         console.log("message: ", this.state.message)
 
-        database.ref("messages/").set({
-            user: this.state.user.email,
+        database.ref("bulletinposts/").push({
+            user: this.props.user.email,
             message: this.state.message
         })
 

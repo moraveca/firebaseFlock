@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
 
-class seekingFamilyBoard extends Component {
+class SeekingFamilyBoard extends Component {
 
     render() {
         return (
@@ -123,4 +123,4 @@ class seekingFamilyBoard extends Component {
 
 
 
-export default seekingFamilyBoard;
+export default SeekingFamilyBoard;

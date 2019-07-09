@@ -13,6 +13,7 @@ class App extends React.Component {
         this.setState({
             pictures: this.state.pictures.concat(picture),
         });
+        console.log(this.state.pictures)
     }
  
     render() {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { db } from "../../api/firebase/index"
 
 
-class DetailForm extends Component {
+class DevDetailForm extends Component {
     // Setting the component's initial state
     state = {
         firstName: "",
@@ -11,6 +11,7 @@ class DetailForm extends Component {
         // image: "",
         about: ""
     };
+
 
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
@@ -30,12 +31,14 @@ class DetailForm extends Component {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
 
-        // console.log("uid: ", this.state.uid);
-        // console.log("email: ", this.state.email);
-        // console.log("firstName: ", this.state.firstName);
-        // console.log("lastName: ", this.state.lastName);
-        // console.log("location: ", this.state.location);
-        // console.log("about: ", this.state.about);
+        console.log("props: ", this.props)
+        console.log("props.user: ", this.props.user)
+        console.log("uid: ", this.props.user.uid);
+        console.log("email: ", this.props.user.email);
+        console.log("firstName: ", this.state.firstName);
+        console.log("lastName: ", this.state.lastName);
+        console.log("location: ", this.state.location);
+        console.log("about: ", this.state.about);
 
         db.collection("users").doc(this.props.user.uid).set({
             uid: this.props.user.uid,
@@ -102,4 +105,4 @@ class DetailForm extends Component {
     }
 }
 
-export default DetailForm;
+export default DevDetailForm;

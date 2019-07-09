@@ -24,53 +24,86 @@ class Profile extends Component {
     // this.loadAbout();
 };
 
-checkingUser = () => {
-  if (!this.props.user.uid) {
-  console.log("user: ", this.props.user);
-  console.log("setting timer");
-  setTimeout(this.checkingUser, 500)
-  } else {
-    this.loadAbout()
-  }
+    constructor(props) {
+        super(props);
+         this.state = { 
+            pictures: [],
+            aboutFromFirebase: "",
+            about: "",
+         };
+    }
 
-}
-
-loadAbout = () => {
-
-  db.collection("users").doc(this.props.user.uid)
-  .onSnapshot(doc => {
-      console.log("Current data: ", doc.data());
-      this.setState({
-        aboutFromFirebase: doc.data().about
-      });
-      console.log("this.state.aboutFromFirebase: ", this.state.aboutFromFirebase)
-  });
-};
-
-  // this is for pic upload
-  onDrop = picture => this.setState({
-          pictures: this.state.pictures.concat(picture),
-      });
-
-
-
-    handleInputChange = event => {
-      // Getting the value and name of the input which triggered the change
-      let value = event.target.value;
-      const name = event.target.name;
-
-      if (name === "password") {
-          value = value.substring(0, 15);
-      }
-      // Updating the input's state
-      this.setState({
-          [name]: value
-      });
+    componentDidMount() {
+      this.checkingUser()
+      // this.loadAbout();
   };
 
-  handleFormSubmit = event => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
-    event.preventDefault();
+  checkingUser = () => {
+    if (!this.props.user.uid) {
+    console.log("user: ", this.props.user);
+    console.log("setting timer");
+    setTimeout(this.checkingUser, 500)
+    } else {
+      this.loadAbout()
+    }
+
+  }
+
+  loadAbout = () => {
+
+    db.collection("users").doc(this.props.user.uid)
+    .onSnapshot(doc => {
+        console.log("Current data: ", doc.data());
+        this.setState({
+          aboutFromFirebase: doc.data().about
+        });
+        console.log("this.state.aboutFromFirebase: ", this.state.aboutFromFirebase)
+    });
+  };
+
+    // this is for pic upload
+    onDrop = picture => this.setState({
+            pictures: this.state.pictures.concat(picture),
+        });
+
+
+
+      handleInputChange = event => {
+        // Getting the value and name of the input which triggered the change
+        let value = event.target.value;
+        const name = event.target.name;
+
+        if (name === "password") {
+            value = value.substring(0, 15);
+        }
+        // Updating the input's state
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleFormSubmit = event => {
+      // Preventing the default behavior of the form submit (which is to refresh the page)
+      event.preventDefault();
+      
+      db.collection("users").doc(this.props.user.uid).update({
+          about: this.state.about
+      })
+      .then(function() {
+          console.log("Document successfully written!");
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+
+      this.setState({
+          firstName: "",
+          lastName: "",
+          location: "",
+          about: "",
+            });
+
+  };
     
     db.collection("users").doc(this.props.user.uid).update({
         about: this.state.about
@@ -156,20 +189,16 @@ loadAbout = () => {
         <h2>Who I am:</h2>
   
                   <br />
-                  
-                    {/* <input
+            {/* <input
                         value={this.state.firstName}
                         name="firstName"
                         onChange={this.handleInputChange}
                         type="text"
                         placeholder="First Name"
                     /> */}
-              </div>
-
-<div id="example-one" >
+                    <div id="example-one">
                         {this.state.aboutFromFirebase}
                     </div>
-                  
 
             <form id="example-one">
             {/* <style scoped>
@@ -177,8 +206,8 @@ loadAbout = () => {
               [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
               [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
             </style> */}
-            
-            <input value={this.state.about}
+
+          <input value={this.state.about}
               name="about"
               onChange={this.handleInputChange}
               type="text"
