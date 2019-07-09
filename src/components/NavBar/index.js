@@ -8,6 +8,16 @@ function NavBar(props) {
                 <img src="Flock-transparent.png" width="20%" height="20%" className="d-inline-block align-top" alt="" />
             </a>
 
+            {/* <div>display: {!props.user.displayName ? 
+                            console.log("nope") :
+
+                console.log("props: ", props.user.displayName) 
+                }
+                
+            {/* <img href={href}></img> */}
+            {/* </div> */}
+
+
             <ul className="nav justify-content-end">
                 <li className="nav-item">
                     <a className="nav-link active" href="/">Home</a>

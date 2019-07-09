@@ -127,7 +127,7 @@ class BulletinBoard extends Component {
         
                 
         
-                database.ref("messages/" + receiver).push({
+                database.ref("messages/" + receiver +"/" + sender).push({
                     senderID: sender,
                     senderFirstName: senderFirstName,
                     senderLastName: senderLastName,
@@ -203,7 +203,7 @@ class BulletinBoard extends Component {
 
                                 <div className="col-sm">
                                     <div className="card" style={{ width: "18rem" }}>
-                                        <div className="fakeimg">Add Image here</div>
+                                    <img className="card-img-top" src={profile.pictureURL} alt="Profile Image" />
                                         <div className="card-body">
                                             <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
                                             <p className="card-text">{profile.about}</p>

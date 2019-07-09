@@ -37,9 +37,11 @@ class Profile extends Component {
   };
 
   loadPicture = () => {
-    this.setState({
+    if (this.props.user.photoURL) {
+      this.setState({
       picture: this.props.user.photoURL
-    })
+    });
+  }
   }
 
   loadAbout = () => {
@@ -90,7 +92,16 @@ class Profile extends Component {
             picture: this.props.user.photoURL
           });
 
-          console.log("state.picture: ", this.state.picture)
+          db.collection("users").doc(this.props.user.uid).update({
+            pictureURL: this.state.picture
+        })
+        .then(function() {
+            console.log("PictureURL successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+
         }
         // Update successful.
       }).catch(function(error) {
@@ -177,7 +188,7 @@ class Profile extends Component {
                   withIcon={true}
                   buttonText='Choose images'
                   onChange={this.onDrop}
-                  imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                  imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
                   maxFileSize={5242880}
                   />}
                 {this.state.picture != "" &&

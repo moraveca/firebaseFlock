@@ -130,9 +130,31 @@ class Homepage extends Component {
             setTimeout(this.thenSetProfile, 500)
 
         } else {
-            console.log("this.props.user: ", this.props.user)
 
-            db.collection("users").doc(this.props.user.uid).set({
+            const user = this.props.user;
+
+            user.updateProfile({
+                displayName: this.state.firstName
+            }).then(() => {
+                if (user != null) {
+                    user.providerData.forEach(profile => {
+                        console.log("Sign-in provider: " + profile.providerId);
+                        console.log("  Provider-specific UID: " + profile.uid);
+                        console.log("  Name: " + profile.displayName);
+                        console.log("  Email: " + profile.email);
+                        console.log("  Photo URL: " + profile.photoURL);
+                    });
+                }
+                // Update successful.
+            }).catch(function (error) {
+                // An error happened.
+            });
+
+
+
+            console.log("this.props.user: ", user)
+
+            db.collection("users").doc(user.uid).set({
                 uid: this.props.user.uid,
                 email: this.props.user.email,
                 firstName: this.state.firstName,
