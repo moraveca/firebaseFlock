@@ -38,6 +38,84 @@ class MessageBoard extends Component {
 
         console.log(this.props.user);
 
+
+        // trying to get this to search other children for messages
+        database.ref("/messages").on("value", snapshot => {
+            console.log("snapshot: ", snapshot)
+        
+        //     const messages = snapshot.val();
+        //     if (!messages) {
+        //         return
+        //     } else {
+        //         // console.log("messages: ", messages);
+        //         const messagesArray = Object.entries(messages);
+        //         // console.log("messagesArray: ", messagesArray);
+
+        //         const messagesToDisplay = [];
+
+        //         messagesArray.forEach(message => {
+        //             console.log("message: ", message);
+
+        //             const senderID = message[0];
+        //             console.log("senderID: ", senderID);
+
+        //             var docRef = db.collection("users").doc(senderID);
+
+        //             docRef.get().then(doc => {
+        //                 if (doc.exists) {
+        //                     // console.log("Document data:", doc.data());
+        //                     const senderURL = doc.data().pictureURL;
+
+        //                     const senderFirstName = doc.data().firstName;
+        //                     const senderLastName = doc.data().lastName;
+        //                     const senderName = senderFirstName + " " + senderLastName;
+        //                     console.log("senderName: ", senderName);
+        //                     console.log("senderURL: ", senderURL);
+        //                     const objectifiedMessages = Object.values(message[1]);
+        //                     const lastMessage = objectifiedMessages[(objectifiedMessages.length - 1)].message
+        //                     console.log("last message: ", lastMessage)
+
+        //                     const messageBoardMessage = {
+        //                         senderUID: senderID,
+        //                         senderName: senderName,
+        //                         senderPicture: senderURL,
+        //                         lastMessage: lastMessage
+        //                     };
+
+        //                     messagesToDisplay.push(messageBoardMessage);
+
+        //                     // console.log("messagesToDisplay: ", messagesToDisplay)
+
+        //                     this.setState({
+        //                         messagesToDisplay: messagesToDisplay
+        //                     });
+
+        //                     console.log("state.messagesToDisplay: ", this.state.messagesToDisplay)
+
+        //                 } else {
+        //                     // doc.data() will be undefined in this case
+        //                     console.log("No such document!");
+        //                 }
+        //             }).catch(error => {
+        //                 console.log("Error getting document:", error);
+        //             });
+
+
+        //         });
+
+
+
+        //         // this.grabMessageSender();
+
+        //     }
+        });
+
+
+
+
+
+
+
         database.ref("/messages/" + this.props.user.uid).on("value", snapshot => {
 
             const messages = snapshot.val();
@@ -109,20 +187,29 @@ class MessageBoard extends Component {
     };
 
     openChat = event => {
-        console.log(event.target);
-        const senderPicture = event.target.attributes.photoURL.nodeValue;
-        // console.log("senderPicture: ", senderPicture);
+        
+        console.log(event.target.attributes);
+        let senderPicture = "";
+        if (!event.target.attributes.photoURL) {
+            senderPicture = ""
+        } else {
+            senderPicture = event.target.attributes.photoURL.nodeValue;
+        };
+        console.log("senderPicture: ", senderPicture);    
         const senderName = event.target.name;
-        // console.log("senderName: ", senderName);
+        console.log("senderName: ", senderName);
         const chattingUID = event.target.value;
-        console.log("chattingUID: ", chattingUID)
+        // console.log("chattingUID: ", chattingUID)
 
         this.setState({
             chattingName: senderName,
             chattingURL: senderPicture,
             chattingUID: chattingUID
-        })
+        });
 
+        console.log("state.chattingURL: ", this.state.chattingURL)
+        console.log("state.chattingUID: ", this.state.chattingUID)
+        console.log("state.chatwindow: ", this.state.chatWindowIsOpen)
 
         const senderUID = event.target.value;
         // console.log("button value: ", senderUID);
@@ -145,7 +232,7 @@ class MessageBoard extends Component {
             messagesArray.forEach(message => {
                 // console.log("message: ", message[1])
 
-                if (message[1].senderID != this.props.user.uid) {
+                if (message[1].senderID !== this.props.user.uid) {
                     const chatToDisplay = {
                         author: "them",
                         type: "text",
