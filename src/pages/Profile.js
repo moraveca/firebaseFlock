@@ -96,17 +96,23 @@ loadAbout = () => {
         <div>
           
         <NavBar />
+        <div className="jumbotron">
+  <h1 className="display-4">Hello, world!</h1>
+  <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr className="my-4"/>
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <form className="form-inline" action="Resource.html">
+                  <button className="btn btn-lg btn-outline-secondary">Resources</button>
+                </form>
+ 
+      </div>
+       
         <div className="jumbotron jumbotron-fluid" id="jumbotron">
         <aside id="intro-aside">
-            <div className="bg-img card-body text-center">
-                      
-                      <blockquote className="blockquote mb-0">
-                        To us, family means putting your arms around each other and being there.
-                          </blockquote>
-                          <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
-                    
+            <div className="card-body text-center">
                           <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
                       <button type="button" className="btn btn-outline-secondary">Friend Search</button>
+             
 
                     </div>
          </aside>
@@ -129,7 +135,7 @@ loadAbout = () => {
               
                   <div className="text-center">
                  
-              
+    
                   <p> Connect with me at the following..</p>
                   <ul className="nav nav-pills flex-column">
                   
@@ -152,11 +158,7 @@ loadAbout = () => {
           </div>
           <br></br>
         <div className="content">
-        <div className="row">
-        <h2>Who I am:</h2>
-  
-                  <br />
-                  
+     
                     {/* <input
                         value={this.state.firstName}
                         name="firstName"
@@ -164,8 +166,8 @@ loadAbout = () => {
                         type="text"
                         placeholder="First Name"
                     /> */}
-              </div>
-
+           
+      <h2>Who I am:</h2>
 <div id="example-one" >
                         {this.state.aboutFromFirebase}
                     </div>
@@ -192,13 +194,12 @@ loadAbout = () => {
            
             <br></br>
                   <br />
-              <div className="row">
-                  <h2>Ways I can help:</h2>
-                  </div>
+              
                   <br />
                  
                  
                     <br />
+                    <h2>Ways I can help:</h2>
                     <div id="example-one" contenteditable="true">
                         {/* <style scoped>
                           #example-one { margin-bottom: 10px; }
@@ -209,9 +210,10 @@ loadAbout = () => {
                          
                         </div>
                 </div>
-                </div>
+            
 
               </div>
+            </div>
             </div>
             <br />
             <Footer />

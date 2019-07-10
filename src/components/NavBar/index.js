@@ -21,12 +21,13 @@ function NavBar(props) {
                       <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a className="dropdown-item" href="">Volunteer Family Board</a>
                         <a className="dropdown-item" href="">Seeking Family Board</a>
+                        <a className="dropdown-item" href="">Logout</a>
                       </div>
                     </li>
             </ul>
             <nav className="navbar navbar-light bg-light" >
                 <form className="form-inline" action="Resource.html">
-                  <button className="btn btn-sm btn-outline-secondary">Resources</button>
+                  <button className="btn btn-sm btn-outline-secondary">Logout</button>
                 </form>
               </nav>
       
