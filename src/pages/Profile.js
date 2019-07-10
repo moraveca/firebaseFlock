@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../api/firebase/index"
+import { db, storage } from "../api/firebase/index"
 
 import NavBar from "../components/NavBar";
 import DevLogIn from "../devComponents/DevLogIn";
@@ -11,88 +11,167 @@ class Profile extends Component {
 
 
   constructor(props) {
-      super(props);
-       this.state = { 
-          pictures: [],
-          aboutFromFirebase: "",
-          about: "",
-       };
+    super(props);
+    this.state = {
+      picture: "",
+      aboutFromFirebase: "",
+      about: "",
+    };
   }
 
   componentDidMount() {
     this.checkingUser()
-    // this.loadAbout();
-};
+  };
 
-checkingUser = () => {
-  if (!this.props.user.uid) {
-  console.log("user: ", this.props.user);
-  console.log("setting timer");
-  setTimeout(this.checkingUser, 500)
-  } else {
-    this.loadAbout()
+  checkingUser = () => {
+    if (!this.props.user.uid) {
+      console.log("user: ", this.props.user);
+      console.log("setting timer");
+      setTimeout(this.checkingUser, 500)
+    } else {
+      this.loadPicture();
+      this.loadAbout()
+    }
+  };
+
+  loadPicture = () => {
+    if (this.props.user.photoURL) {
+      this.setState({
+        picture: this.props.user.photoURL
+      });
+    }
   }
 
-}
+  loadAbout = () => {
+    console.log("user: ", this.props.user);
 
-loadAbout = () => {
-
-  db.collection("users").doc(this.props.user.uid)
-  .onSnapshot(doc => {
-      console.log("Current data: ", doc.data());
-      this.setState({
-        aboutFromFirebase: doc.data().about
+    db.collection("users").doc(this.props.user.uid)
+      .onSnapshot(doc => {
+        console.log("Current data: ", doc.data());
+        this.setState({
+          aboutFromFirebase: doc.data().about
+        });
       });
-      console.log("this.state.aboutFromFirebase: ", this.state.aboutFromFirebase)
-  });
-};
+  };
 
   // this is for pic upload
-  onDrop = picture => this.setState({
-          pictures: this.state.pictures.concat(picture),
+  onDrop = picture => {
+
+    // console.log("picture: ", picture);
+    const file = picture[0];
+    console.log("file: ", file);
+
+    const storageRef = storage.ref();
+
+    const imagesRef = storageRef.child("images");
+    const spaceRef = storageRef.child("images/" + file.name);
+
+    spaceRef.put(file).then(snapshot => {
+      console.log('Uploaded a blob or file!');
+      snapshot.ref.getDownloadURL().then(downloadURL => {
+        console.log('File available at', downloadURL);
+
+
+        const user = this.props.user;
+
+        user.updateProfile({
+          photoURL: downloadURL
+        }).then(() => {
+          if (user != null) {
+            user.providerData.forEach(profile => {
+              console.log("Sign-in provider: " + profile.providerId);
+              console.log("  Provider-specific UID: " + profile.uid);
+              console.log("  Name: " + profile.displayName);
+              console.log("  Email: " + profile.email);
+              console.log("  Photo URL: " + profile.photoURL);
+            });
+
+            this.setState({
+              picture: this.props.user.photoURL
+            });
+
+            db.collection("users").doc(this.props.user.uid).update({
+              pictureURL: this.state.picture
+            })
+              .then(function () {
+                console.log("PictureURL successfully written!");
+              })
+              .catch(function (error) {
+                console.error("Error adding document: ", error);
+              });
+
+          }
+          // Update successful.
+        }).catch(function (error) {
+          // An error happened.
+        });
+
       });
+    });
+
+
+  }
 
 
 
-    handleInputChange = event => {
-      // Getting the value and name of the input which triggered the change
-      let value = event.target.value;
-      const name = event.target.name;
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
 
-      if (name === "password") {
-          value = value.substring(0, 15);
-      }
-      // Updating the input's state
-      this.setState({
-          [name]: value
-      });
+    if (name === "password") {
+      value = value.substring(0, 15);
+    }
+    // Updating the input's state
+    this.setState({
+      [name]: value
+    });
   };
 
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    
+
     db.collection("users").doc(this.props.user.uid).update({
-        about: this.state.about
+      about: this.state.about
     })
-    .then(function() {
+      .then(function () {
         console.log("Document successfully written!");
-    })
-    .catch(function(error) {
+      })
+      .catch(function (error) {
         console.error("Error adding document: ", error);
-    });
+      });
 
     this.setState({
-        firstName: "",
-        lastName: "",
-        location: "",
-        about: "",
-          });
+      firstName: "",
+      lastName: "",
+      location: "",
+      about: "",
+    });
 
-};
-    render() {
-        return (
-            <div>
+  };
+
+  // db.collection("users").doc(this.props.user.uid).update({
+  //     about: this.state.about
+  // })
+  // .then(function() {
+  //     console.log("Document successfully written!");
+  // })
+  // .catch(function(error) {
+  //     console.error("Error adding document: ", error);
+  // });
+
+  // this.setState({
+  //     firstName: "",
+  //     lastName: "",
+  //     location: "",
+  //     about: "",
+  //       });
+
+
+  render() {
+    return (
+      <div>
         <div>
           
         <NavBar />
@@ -151,7 +230,7 @@ loadAbout = () => {
                 </div>
        
 
-            <div className="col-sm-8">
+        <div className="container-fluid">
           <div className="row">
      
           <h1>About Me</h1>
@@ -159,13 +238,7 @@ loadAbout = () => {
           <br></br>
         <div className="content">
      
-                    {/* <input
-                        value={this.state.firstName}
-                        name="firstName"
-                        onChange={this.handleInputChange}
-                        type="text"
-                        placeholder="First Name"
-                    /> */}
+
            
       <h2>Who I am:</h2>
 <div id="example-one" >
@@ -173,26 +246,26 @@ loadAbout = () => {
                     </div>
                   
 
-            <form id="example-one">
-            {/* <style scoped>
+                  <form id="example-one">
+                    {/* <style scoped>
               #example-one { margin-bottom: 30px; }
               [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
               [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
             </style> */}
-            
-            <input value={this.state.about}
-              name="about"
-              onChange={this.handleInputChange}
-              type="text"
-              placeholder="Tell us about yourself!">
-            </input>
-            <br></br>
-            <br></br>
-            </form>
-            <br></br>
-            <button onClick={this.handleFormSubmit}>Submit Changes</button>
-           
-            <br></br>
+
+                    <input value={this.state.about}
+                      name="about"
+                      onChange={this.handleInputChange}
+                      type="text"
+                      placeholder="Tell us about yourself!">
+                    </input>
+                    <br></br>
+                    <br></br>
+                  </form>
+                  <br></br>
+                  <button onClick={this.handleFormSubmit}>Submit Changes</button>
+
+                  <br></br>
                   <br />
               
                   <br />
@@ -201,18 +274,16 @@ loadAbout = () => {
                     <br />
                     <h2>Ways I can help:</h2>
                     <div id="example-one" contenteditable="true">
-                        {/* <style scoped>
-                          #example-one { margin-bottom: 10px; }
-                          [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
-                          [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
-                        </style> */}
                         <p>edit here.. </p>
                          
                         </div>
                 </div>
             
 
+                  </div>
+                </div>
               </div>
+
             </div>
             </div>
             <br />

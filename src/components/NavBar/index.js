@@ -4,10 +4,11 @@ import "./style.css";
 function NavBar(props) {
     return (
 
+
       <nav className="navbar navbar-light bg-light .navbar-expand{-sm|-md|-lg|-xl">
       <a className="navbar-brand" href="index.html">
       <img src="Flock-transparent.png" width="10%" height="20%" alt="" /></a>
-        <ul className="nav justify-content-end">
+        <ul className="nav justify-content-end" >
               <li className="nav-item">
                 <a className="nav-link active" href="index.html">Home</a>
               </li>
@@ -24,6 +25,9 @@ function NavBar(props) {
                         <a className="dropdown-item" href="">Logout</a>
                       </div>
                     </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="/resources">Resource Guide</a>
+                </li>
             </ul>
             <nav className="navbar navbar-light bg-light" >
                 <form className="form-inline" action="Resource.html">
