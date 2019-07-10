@@ -45,7 +45,6 @@ class Homepage extends Component {
     openModal = () => {
         console.log("open modal")
         this.setState({ modalIsOpen: true });
-
     }
 
     afterOpenModal = () => {
@@ -181,7 +180,7 @@ class Homepage extends Component {
             <div>
                 <div>
                     <div className="card text-center">
-                        <NavBar />
+                        {/* <NavBar /> */}
 
                         <Modal
                             isOpen={this.state.modalIsOpen}
@@ -191,36 +190,137 @@ class Homepage extends Component {
                             contentLabel="Example Modal"
                         >
 
+                            <div className="form_wrapper">
+                                <div className="form_container">
+                                    <div className="title_container">
+                                        <h2> Registration Form </h2>
+                                    </div>
+                                    <div className="row clearfix">
+                                        <div className="">
 
-                            <div className="card" id="login-box">
-                                <div className="card-body">
-                                    <p className="card-title"><strong>Log in here</strong></p>
-                                    <div id="email-header">Email address</div>
-                                    <input
-                                        value={this.state.email}
-                                        onChange={this.handleInputChange}
-                                        type="email"
-                                        name="email"
-                                        className="box"
-                                        required />
-                                    <div id="password-header">Password</div>
-                                    <input
-                                        value={this.state.password}
-                                        onChange={this.handleInputChange}
-                                        type="password"
-                                        name="password"
-                                        className="box"
-                                        required />
-                                    <div id="enter-box">
-                                        <br />
-                                        <button
-                                            onClick={this.handleSignIn}
-                                            href="#"
-                                            className="btn btn-primary">Enter</button>
+                                            {/* //   <input
+                            //   value={this.state.email}
+                            //   name="email"
+                            //   onChange={this.handleInputChange}
+                            //   type="text"
+                            //   placeholder="Email"
+                            // /> */}
+
+                                            <form>
+                                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-envelope"></i></span>
+                                                    <input value={this.state.email}
+                                                        onChange={this.handleInputChange}
+                                                        type="email"
+                                                        name="email"
+                                                        placeholder="Email"
+                                                        required />
+                                                </div>
+                                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                                    <input value={this.state.password}
+                                                        onChange={this.handleInputChange}
+                                                        type="password"
+                                                        name="password"
+                                                        placeholder="Password"
+                                                        required />
+                                                </div>
+                                                <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                                    <input value={this.state.passwordCheck}
+                                                        onChange={this.handleInputChange}
+                                                        type="password"
+                                                        name="passwordCheck"
+                                                        placeholder="Re-type Password"
+                                                        required />
+                                                </div>
+                                                <div className="row clearfix">
+                                                    <div className="col_half">
+                                                        <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                                            <input value={this.state.firstName}
+                                                                onChange={this.handleInputChange}
+                                                                type="text"
+                                                                name="firstName"
+                                                                placeholder="First Name" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col_half">
+                                                        <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
+                                                            <input value={this.state.lastName}
+                                                                onChange={this.handleInputChange}
+                                                                type="text"
+                                                                name="lastName"
+                                                                placeholder="Last Name"
+                                                                required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="input_field radio_option">
+                                                    <h3>Please choose one</h3>
+                                                    <input
+                                                        type="radio"
+                                                        name="radiogroup1"
+                                                        value="seeking"
+                                                        checked={this.state.selectedOption === "seeking"}
+                                                        onChange={this.handleOptionChange}
+                                                        id="rd1" />
+                                                    <label htmlFor="rd1">Seeking Family</label>
+                                                    <input
+                                                        type="radio"
+                                                        name="radiogroup1"
+                                                        value="volunteering"
+                                                        checked={this.state.selectedOption === "volunteering"}
+                                                        onChange={this.handleOptionChange}
+                                                        id="rd2" />
+                                                    <label htmlFor="rd2">Volunteer Family</label>
+                                                </div>
+
+                                                <input
+                                                    className="button"
+                                                    type="submit"
+                                                    onClick={this.handleFormSubmit}
+                                                    value="Register" />
+                                            </form>
+                                            <p className="change_link">
+                                                Already a member ?
+                                <a href="#" onClick={this.handleButtonClick} className="to_register"> Go and log in </a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </Modal>
+
+                        <button
+                            onClick={this.openModal}
+                            href="#"
+                            className="btn btn-primary">Sign Up Here!</button>
+
+                        <div className="card" id="login-box">
+                            <div className="card-body">
+                                <p className="card-title"><strong>Log in here</strong></p>
+                                <div id="email-header">Email address</div>
+                                <input
+                                    value={this.state.email}
+                                    onChange={this.handleInputChange}
+                                    type="email"
+                                    name="email"
+                                    className="box"
+                                    required />
+                                <div id="password-header">Password</div>
+                                <input
+                                    value={this.state.password}
+                                    onChange={this.handleInputChange}
+                                    type="password"
+                                    name="password"
+                                    className="box"
+                                    required />
+                                <div id="enter-box">
+                                    <br />
+                                    <button
+                                        onClick={this.handleSignIn}
+                                        href="#"
+                                        className="btn btn-primary">Enter</button>
+                                </div>
+                            </div>
+                        </div>
 
                         <div className="card-body" id="logo-and-blurb">
                             <a className="navbar-brand" href="index.html" id="logo">
@@ -244,102 +344,7 @@ class Homepage extends Component {
                         </div> */}
                     </div>
                 </div>
-                <div className="form_wrapper">
-                    <div className="form_container">
-                        <div className="title_container">
-                            <h2> Registration Form </h2>
-                        </div>
-                        <div className="row clearfix">
-                            <div className="">
 
-                                {/* //   <input
-                            //   value={this.state.email}
-                            //   name="email"
-                            //   onChange={this.handleInputChange}
-                            //   type="text"
-                            //   placeholder="Email"
-                            // /> */}
-
-                                <form>
-                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-envelope"></i></span>
-                                        <input value={this.state.email}
-                                            onChange={this.handleInputChange}
-                                            type="email"
-                                            name="email"
-                                            placeholder="Email"
-                                            required />
-                                    </div>
-                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input value={this.state.password}
-                                            onChange={this.handleInputChange}
-                                            type="password"
-                                            name="password"
-                                            placeholder="Password"
-                                            required />
-                                    </div>
-                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input value={this.state.passwordCheck}
-                                            onChange={this.handleInputChange}
-                                            type="password"
-                                            name="passwordCheck"
-                                            placeholder="Re-type Password"
-                                            required />
-                                    </div>
-                                    <div className="row clearfix">
-                                        <div className="col_half">
-                                            <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
-                                                <input value={this.state.firstName}
-                                                    onChange={this.handleInputChange}
-                                                    type="text"
-                                                    name="firstName"
-                                                    placeholder="First Name" />
-                                            </div>
-                                        </div>
-                                        <div className="col_half">
-                                            <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
-                                                <input value={this.state.lastName}
-                                                    onChange={this.handleInputChange}
-                                                    type="text"
-                                                    name="lastName"
-                                                    placeholder="Last Name"
-                                                    required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input_field radio_option">
-                                        <h3>Please choose one</h3>
-                                        <input
-                                            type="radio"
-                                            name="radiogroup1"
-                                            value="seeking"
-                                            checked={this.state.selectedOption === "seeking"}
-                                            onChange={this.handleOptionChange}
-                                            id="rd1" />
-                                        <label htmlFor="rd1">Seeking Family</label>
-                                        <input
-                                            type="radio"
-                                            name="radiogroup1"
-                                            value="volunteering"
-                                            checked={this.state.selectedOption === "volunteering"}
-                                            onChange={this.handleOptionChange}
-                                            id="rd2" />
-                                        <label htmlFor="rd2">Volunteer Family</label>
-                                    </div>
-
-                                    <input
-                                        className="button"
-                                        type="submit"
-                                        onClick={this.handleFormSubmit}
-                                        value="Register" />
-                                </form>
-                                <p className="change_link">
-                                    Already a member ?
-                                <a href="#" onClick={this.handleButtonClick} className="to_register"> Go and log in </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <Footer />
 
 

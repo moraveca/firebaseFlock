@@ -210,7 +210,7 @@ class Profile extends Component {
               />
               <br />
               <br />
-              <h2 class="display-8">Personal Links:</h2>
+              <h2 className="display-8">Personal Links:</h2>
 
               <div className="text-center">
 
@@ -219,9 +219,9 @@ class Profile extends Component {
                 <ul className="nav nav-pills flex-column">
 
                   <li className="nav-item" >
-                    <a class="social-icon" href="www.facebook.com" target="_blank"><img src="facebook.png" width="20" height="20" /></a>
-                    <a class="social-icon" href="www.twitter.com" target="_blank"><img src="twitter.png" width="20" height="20" /></a>
-                    <a class="social-icon" href="www.snapchat.com" target="_blank"><img src="snapchat.png" width="20" height="20" /></a>
+                    <a className="social-icon" href="www.facebook.com" target="_blank"><img src="facebook.png" width="20" height="20" /></a>
+                    <a className="social-icon" href="www.twitter.com" target="_blank"><img src="twitter.png" width="20" height="20" /></a>
+                    <a className="social-icon" href="www.snapchat.com" target="_blank"><img src="snapchat.png" width="20" height="20" /></a>
 
                   </li>
                 </ul>

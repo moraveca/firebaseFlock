@@ -38,7 +38,8 @@ class MessageBoard extends Component {
 
         console.log(this.props.user);
 
-        database.ref("/messages/" + this.props.user.uid).on("value", snapshot => {
+
+        database.ref("/messages/").on("value", snapshot => {
 
             const messages = snapshot.val();
             if (!messages) {
@@ -109,20 +110,29 @@ class MessageBoard extends Component {
     };
 
     openChat = event => {
-        console.log(event.target);
-        const senderPicture = event.target.attributes.photoURL.nodeValue;
-        // console.log("senderPicture: ", senderPicture);
+        
+        console.log(event.target.attributes);
+        let senderPicture = "";
+        if (!event.target.attributes.photoURL) {
+            senderPicture = ""
+        } else {
+            senderPicture = event.target.attributes.photoURL.nodeValue;
+        };
+        console.log("senderPicture: ", senderPicture);    
         const senderName = event.target.name;
-        // console.log("senderName: ", senderName);
+        console.log("senderName: ", senderName);
         const chattingUID = event.target.value;
-        console.log("chattingUID: ", chattingUID)
+        // console.log("chattingUID: ", chattingUID)
 
         this.setState({
             chattingName: senderName,
             chattingURL: senderPicture,
             chattingUID: chattingUID
-        })
+        });
 
+        console.log("state.chattingURL: ", this.state.chattingURL)
+        console.log("state.chattingUID: ", this.state.chattingUID)
+        console.log("state.chatwindow: ", this.state.chatWindowIsOpen)
 
         const senderUID = event.target.value;
         // console.log("button value: ", senderUID);
@@ -145,7 +155,7 @@ class MessageBoard extends Component {
             messagesArray.forEach(message => {
                 // console.log("message: ", message[1])
 
-                if (message[1].senderID != this.props.user.uid) {
+                if (message[1].senderID !== this.props.user.uid) {
                     const chatToDisplay = {
                         author: "them",
                         type: "text",
