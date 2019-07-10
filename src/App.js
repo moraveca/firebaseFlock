@@ -14,6 +14,7 @@ import DevChat from "./devComponents/DevChat";
 import DevMyMessages from "./devPages/DevMyMessages";
 import DevLogIn from "./devPages/DevLogIn";
 import DevDetailForm from "./devComponents/DevDetailForm";
+import About from "./pages/About";
 
 import NavBar from "./components/NavBar";
 
@@ -48,6 +49,7 @@ function App() {
           <Route exact path="/profile" render={(props) => <Profile {...props} user={user} setUser={setUser} />} />
           <Route exact path="/homepage" render={(props) => <Homepage {...props} user={user} setUser={setUser} />} />
           <Route exact path="/bulletin" render={(props) => <BulletinBoard {...props} user={user} />} />
+          <Route exact path="/about" render={(props) => <About {...props} user={user} setUser={setUser} />} />
 
           {/* <Route component={NoMatch} /> */}
         </Switch>

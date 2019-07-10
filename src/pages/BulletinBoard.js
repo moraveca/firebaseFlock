@@ -487,6 +487,7 @@ class BulletinBoard extends Component {
 
     render() {
         return (
+            <>
             <div>
                 <div>
                     {/* <NavBar /> */}
@@ -511,17 +512,29 @@ class BulletinBoard extends Component {
                         </form>
                     </Modal> */}
 
-                    <div className="card-body text-center">
-                        <h5 className="card-title">Volunteer Family Board</h5>
-                        <p className="card-text" >
-                            <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
-                        </p>
-                        <br />
 
-                        <button type="button" className="btn btn-outline-secondary">Return to your profile</button>
-                        &nbsp;&nbsp;&nbsp;
-                        <button type="button" className="btn btn-outline-secondary">Seeking Family Board</button>
-                        <br />
+                    <div className="jumbotron jumbotron-fluid" id="jumbotron">
+                        <aside id="intro-aside">
+                            <div className="bg-img card-body text-center">
+
+                                <blockquote className="blockquote mb-0">
+                                    To us, family means putting your arms around each other and being there.
+                          </blockquote>
+                                <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
+
+                                <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
+                      <button type="button" className="btn btn-outline-secondary">Friend Search</button>
+
+                                <div className="card-body text-center">
+                                    <h5 className="card-title">Volunteer Family Board</h5>
+                                    <p className="card-text" >
+                                        <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
+                                    </p>
+                                    <br />
+
+                                </div>
+                            </div>
+                        </aside>
                     </div>
                 </div>
                 <br />
@@ -552,14 +565,13 @@ class BulletinBoard extends Component {
                                             >Chat with {profile.firstName}</button>
                                         </div>
                                     </div>
-                                </div>
-                            ))
+                                ))
 
-                        ) : (
-                                <h3>No Results to Display</h3>
-                            )}
+                            ) : (
+                                    <h3>No Results to Display</h3>
+                                )}
+                        </div>
                     </div>
-                </div>
 
 
                 <br />
@@ -576,10 +588,13 @@ class BulletinBoard extends Component {
                     handleClick={this.closeChat}
                     isOpen={this.state.chatWindowIsOpen}
                 />
+                </div>
+            </div>
 
-                <Footer />
-            </div >
-        );
+            <Footer />
+            </>
+                );
+
     }
 }
 

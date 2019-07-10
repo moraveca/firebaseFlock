@@ -30,7 +30,7 @@ function NavBar(props) {
             </ul>
             <nav className="navbar navbar-light bg-light" >
                 <form className="form-inline" action="Resource.html">
-                  <button className="btn btn-sm btn-outline-secondary">Resources</button>
+                  <button className="btn btn-sm btn-outline-secondary">Logout</button>
                 </form>
               </nav>
       

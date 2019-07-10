@@ -1,5 +1,6 @@
 body {
-  margin: 0;
+
+  background-color:white ;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -16,11 +17,16 @@ code {
   margin-bottom: 30px;
   padding: 10px; outline: 1px dashed #CCC; 
   margin: 0 auto;
-
+  text-align:center;
+  max-width: 500;
+  padding-bottom: 20px;
+ 
+  
 }
 
 #example-one :hover{
- outline: 2px dashed #0090D2;
+margin-bottom: 30px;
+ padding: 10px; outline: 1px dashed #0090D2;
  margin: 0 auto;
 }
 h1{
@@ -37,19 +43,20 @@ h2 {
 h3{
   font-size: 16px;
 }
+.col-sm-8 {
+  margin-bottom: 20px;
+}
 
-.container-fluid {
-  margin: 0 auto;
-  background-color: white;
-  font-family: 'Thasadith', sans-serif;
-  
-  }
   .row {
+    margin: 10px;
+    background-image:url("/beige.jpg");
     margin: 0 auto;
     text-align:center;
+    background-size: cover;
     }
     
     .col {
+    background-color: white;
     margin: 0 auto;
     text-align:center;
     
@@ -58,18 +65,39 @@ h3{
   
 /* JUMBOTRON */
 
-
+.jumbotron { background: url("/AllLove.png");
+  background-size: cover;}
 #jumbotron  {
-  background: url("/action.jpg");
+  background: url("/AllLove.png");
   background-size: cover;
   font-family: 'Thasadith', sans-serif;
-  margin:0 auto;
-  height: 350px;
+  margin-bottom: 10px;
+  height: 400px;
   }
-
+  .content{
+    max-width: 960px;
+    background-color: white;
+    height:auto;
+    padding-bottom: 2.5rem;
+    border: 5px solid #cccc;
+    margin: 0 auto;
+  }
+  
+  .container-fluid {
+  position:relative;
+  height: auto;
+  padding-top: 40px;
+  min-height:80vh;
+  margin: 0 auto;
+  background-color: white;
+  font-family: 'Thasadith', sans-serif;
+  
+  }
+  
 
   #intro-aside {
     width: 100%;
+    margin-top: 250px;
     padding-left: .5rem;
     margin-left: .5rem;
     float:left;
@@ -86,6 +114,7 @@ h3{
     font-family: 'Thasadith', sans-serif;
     color: #29627e;
 }
+
 
 aside > p {
     margin: .5rem;
@@ -107,8 +136,14 @@ aside > ul {
  margin-top: 35px;
  position: relative;
  margin-bottom: 10px;
+ 
 
 }
+
+.btn .btn-outline-secondary {
+  margin-top: 80px;
+}
+
 .quotation {
   margin-top: 25px;
   margin-bottom: -10px;
@@ -117,7 +152,3 @@ aside > ul {
   padding: 5px;
 }
 
-#example-one {
-  text-align:center;
-  max-width: 500;
-}
