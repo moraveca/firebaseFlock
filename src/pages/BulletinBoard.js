@@ -113,38 +113,38 @@ class BulletinBoard extends Component {
         let senderLastName = "";
 
         db.collection("users").doc(sender).
-            get().then(function(doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-                console.log("document data firstname: ", doc.data().firstName)
-                senderFirstName = doc.data().firstName;
-                senderLastName = doc.data().lastName;
+            get().then(function (doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
+                    console.log("document data firstname: ", doc.data().firstName)
+                    senderFirstName = doc.data().firstName;
+                    senderLastName = doc.data().lastName;
 
-                console.log("sender.uid: ", sender);
-                console.log("sender name: ", senderFirstName);
-                console.log("receiver.uid: ", receiver);
-                console.log("message: ", message);
-        
-                
-        
-                database.ref("messages/" + receiver +"/" + sender).push({
-                    senderID: sender,
-                    senderFirstName: senderFirstName,
-                    senderLastName: senderLastName,
-                    message: message
-                });
-                
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
+                    console.log("sender.uid: ", sender);
+                    console.log("sender name: ", senderFirstName);
+                    console.log("receiver.uid: ", receiver);
+                    console.log("message: ", message);
+
+
+
+                    database.ref("messages/" + receiver + "/" + sender).push({
+                        senderID: sender,
+                        senderFirstName: senderFirstName,
+                        senderLastName: senderLastName,
+                        message: message
+                    });
+
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+            });
 
         this.closeModal();
 
-        
+
 
 
     }
@@ -153,21 +153,11 @@ class BulletinBoard extends Component {
 
     render() {
         return (
+            <>
             <div>
                 <div>
                     <NavBar />
 
-                    <div className="jumbotron jumbotron-fluid" id="jumbotron">
-        <aside id="intro-aside">
-            <div className="bg-img card-body text-center">
-                      
-                      <blockquote className="blockquote mb-0">
-                        To us, family means putting your arms around each other and being there.
-                          </blockquote>
-                          <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
-                 
-                          <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
-                      <button type="button" className="btn btn-outline-secondary">Friend Search</button>
                     <Modal
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
@@ -188,62 +178,79 @@ class BulletinBoard extends Component {
                         </form>
                     </Modal>
 
-                    <div className="card-body text-center">
-                        <h5 className="card-title">Volunteer Family Board</h5>
-                        <p className="card-text" >
-                            <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
-                        </p>
-                        <br />
 
+                    <div className="jumbotron jumbotron-fluid" id="jumbotron">
+                        <aside id="intro-aside">
+                            <div className="bg-img card-body text-center">
+
+                                <blockquote className="blockquote mb-0">
+                                    To us, family means putting your arms around each other and being there.
+                          </blockquote>
+                                <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
+
+                                <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
+                      <button type="button" className="btn btn-outline-secondary">Friend Search</button>
+
+                                <div className="card-body text-center">
+                                    <h5 className="card-title">Volunteer Family Board</h5>
+                                    <p className="card-text" >
+                                        <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
+                                    </p>
+                                    <br />
+
+                                </div>
+                            </div>
+                        </aside>
                     </div>
-         </aside>
-    </div>
-       </div>
-                    
-                <br />
-                <br />
-                <br />
-                {/* // <!--Availble Volunteer List--> */}
-                <div className="container">
-                    <div className="row">
 
-                        {this.state.profiles.length ? (
+                    <br />
+                    <br />
+                    <br />
+                    {/* // <!--Availble Volunteer List--> */}
+                    <div className="container">
+                        <div className="row">
+
+                            {this.state.profiles.length ? (
 
 
-                            this.state.profiles.map(profile => (
+                                this.state.profiles.map(profile => (
 
-                                <div className="col-sm">
-                                    <div className="card" style={{ width: "18rem" }}>
-                                    <img className="fakeimg" src={profile.pictureURL} alt="Profile Image" />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
-                                            <p className="card-text">{profile.about}</p>
-                                            <button
-                                                value={profile.uid}
-                                                // button onClick={this.deleteRow.bind(this, id)}
-                                                // button onClick={(e) => this.deleteRow(id, e)}
-                                                onClick={this.handleButtonClick}
-                                                className="btn btn-primary"
-                                            >Contact Me</button>
+                                    <div className="col-sm">
+                                        <div className="card" style={{ width: "18rem" }}>
+                                            <img className="fakeimg" src={profile.pictureURL} alt="Profile Image" />
+                                            <div className="card-body">
+                                                <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
+                                                <p className="card-text">{profile.about}</p>
+                                                <button
+                                                    value={profile.uid}
+                                                    // button onClick={this.deleteRow.bind(this, id)}
+                                                    // button onClick={(e) => this.deleteRow(id, e)}
+                                                    onClick={this.handleButtonClick}
+                                                    className="btn btn-primary"
+                                                >Contact Me</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))
+                                ))
 
-                        ) : (
-                                <h3>No Results to Display</h3>
-                            )}
+                            ) : (
+                                    <h3>No Results to Display</h3>
+                                )}
+                        </div>
                     </div>
+
+
+                    <br />
+                    <br />
+                    <br />
+
                 </div>
+            </div>
 
+            <Footer />
+            </>
+                );
 
-                <br />
-                <br />
-                <br />
-
-                <Footer />
-            </div >
-        );
     }
 }
 
