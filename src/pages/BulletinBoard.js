@@ -157,6 +157,17 @@ class BulletinBoard extends Component {
                 <div>
                     <NavBar />
 
+                    <div className="jumbotron jumbotron-fluid" id="jumbotron">
+        <aside id="intro-aside">
+            <div className="bg-img card-body text-center">
+                      
+                      <blockquote className="blockquote mb-0">
+                        To us, family means putting your arms around each other and being there.
+                          </blockquote>
+                          <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
+                 
+                          <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
+                      <button type="button" className="btn btn-outline-secondary">Friend Search</button>
                     <Modal
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
@@ -184,12 +195,11 @@ class BulletinBoard extends Component {
                         </p>
                         <br />
 
-                        <button type="button" className="btn btn-outline-secondary">Return to your profile</button>
-                        &nbsp;&nbsp;&nbsp;
-                        <button type="button" className="btn btn-outline-secondary">Seeking Family Board</button>
-                        <br />
                     </div>
-                </div>
+         </aside>
+    </div>
+       </div>
+                    
                 <br />
                 <br />
                 <br />
@@ -199,11 +209,12 @@ class BulletinBoard extends Component {
 
                         {this.state.profiles.length ? (
 
+
                             this.state.profiles.map(profile => (
 
                                 <div className="col-sm">
                                     <div className="card" style={{ width: "18rem" }}>
-                                    <img className="card-img-top" src={profile.pictureURL} alt="Profile Image" />
+                                    <img className="fakeimg" src={profile.pictureURL} alt="Profile Image" />
                                         <div className="card-body">
                                             <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
                                             <p className="card-text">{profile.about}</p>

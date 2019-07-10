@@ -173,84 +173,78 @@ class Profile extends Component {
     return (
       <div>
         <div>
-
-          <NavBar />
-          <div className="jumbotron jumbotron-fluid" id="jumbotron">
-            <aside id="intro-aside">
-              <div className="bg-img card-body text-center">
-
-                <blockquote className="blockquote mb-0">
-                  To us, family means putting your arms around each other and being there.
-                          </blockquote>
-                <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
-
-                <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
+          
+        <NavBar />
+        <div className="jumbotron">
+  <h1 className="display-4">Hello, world!</h1>
+  <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr className="my-4"/>
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <form className="form-inline" action="Resource.html">
+                  <button className="btn btn-lg btn-outline-secondary">Resources</button>
+                </form>
+ 
+      </div>
+       
+        <div className="jumbotron jumbotron-fluid" id="jumbotron">
+        <aside id="intro-aside">
+            <div className="card-body text-center">
+                          <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
                       <button type="button" className="btn btn-outline-secondary">Friend Search</button>
+             
 
-              </div>
-            </aside>
-          </div>
-        </div>
+                    </div>
+         </aside>
+    </div>
+       </div>
+        
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-sm-4">
+                    <ImageUploader
+                      withIcon={true}
+                    buttonText='Choose images'
+                      onChange={this.onDrop}
+                   imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+            />
+                  <br />
+                  <br />
+                  <h2 class="display-8">Personal Links:</h2>
+              
+                  <div className="text-center">
+                 
+    
+                  <p> Connect with me at the following..</p>
+                  <ul className="nav nav-pills flex-column">
+                  
+                    <li className="nav-item" >
+                    <a class="social-icon" href="www.facebook.com"target="_blank"><img src="facebook.png" width="20" height="20"/></a> 
+                    <a class="social-icon" href="www.twitter.com"target="_blank"><img src="twitter.png" width="20" height="20"/></a> 
+                    <a class="social-icon" href="www.snapchat.com"target="_blank"><img src="snapchat.png" width="20" height="20"/></a> 
+
+                    </li>
+                  </ul>
+                 
+                  </div>
+                </div>
+       
 
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-4">
+     
+          <h1>About Me</h1>
+          </div>
+          <br></br>
+        <div className="content">
+     
 
-              {this.state.picture === "" &&
-                <ImageUploader
-                  withIcon={true}
-                  buttonText='Choose images'
-                  onChange={this.onDrop}
-                  imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
-                  maxFileSize={5242880}
-                />}
-              {this.state.picture != "" &&
-                <img src={this.state.picture} alt="Profile Pic"></img>
-              }
-
-              <br />
-              <br />
-              <h2 class="display-8">Personal Links:</h2>
-
-              <div className="text-center">
-
-
-                <p> Connect with me at the following..</p>
-                <ul className="nav nav-pills flex-column">
-
-                  <li className="nav-item" >
-                    <a class="social-icon" href="www.facebook.com" target="_blank"><img src="facebook.png" width="20" height="20" /></a>
-                    <a class="social-icon" href="www.twitter.com" target="_blank"><img src="twitter.png" width="20" height="20" /></a>
-                    <a class="social-icon" href="www.snapchat.com" target="_blank"><img src="snapchat.png" width="20" height="20" /></a>
-
-                  </li>
-                </ul>
-
-              </div>
-            </div>
-
-
-            <div className="col-sm-8">
-              <div className="row">
-
-                <h1>About Me</h1>
-              </div>
-              <br></br>
-              <div className="content">
-                <div className="row">
-                  <h2>Who I am:</h2>
-
-                  <br />
-                  {/* <input
-                        value={this.state.firstName}
-                        name="firstName"
-                        onChange={this.handleInputChange}
-                        type="text"
-                        placeholder="First Name"
-                    /> */}
-                  <div id="example-one">
-                    {this.state.aboutFromFirebase}
-                  </div>
+           
+      <h2>Who I am:</h2>
+<div id="example-one" >
+                        {this.state.aboutFromFirebase}
+                    </div>
+                  
 
                   <form id="example-one">
                     {/* <style scoped>
@@ -273,33 +267,30 @@ class Profile extends Component {
 
                   <br></br>
                   <br />
-                  <div className="row">
+              
+                  <br />
+                 
+                 
+                    <br />
                     <h2>Ways I can help:</h2>
-                  </div>
-                  <br />
-
-
-                  <br />
-                  <div id="example-one" contenteditable="true">
-                    {/* <style scoped>
-                          #example-one { margin-bottom: 10px; }
-                          [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
-                          [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
-                        </style> */}
-                    <p>edit here.. </p>
+                    <div id="example-one" contenteditable="true">
+                        <p>edit here.. </p>
+                         
+                        </div>
+                </div>
+            
 
                   </div>
                 </div>
               </div>
 
             </div>
-          </div>
-          <br />
-          <Footer />
-        </div>
-      </div>
-    );
-  }
+            </div>
+            <br />
+            <Footer />
+            </div>
+        );
+    }
 }
 
 

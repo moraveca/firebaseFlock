@@ -3,7 +3,7 @@ import "./style.css";
 
 function Footer(props) {
     return (
-        <footer className= "text-center">
+        <footer className= "footer">
             <p>Copyright © 2019 </p>
         </footer>
 
