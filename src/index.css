@@ -13,6 +13,42 @@ code {
     monospace;
 }
 
+
+#logo-box {
+  float: left;
+  /*margin-left: 210px; */
+  height: 90px;
+  width: 150px;
+  border-radius: 10px;
+}
+
+#small-logo {
+  width: 20%;
+  border-radius: 10px;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+
+#resources-box {
+  margin-top: 10px;
+  margin-left: 0px;
+  width: 600px;
+}
+
+#left-column {
+/*margin-left: 30px;
+/* width: 100px;*/
+}
+
+#res-link {
+color: #2f33ff;
+}
+
+
+
 #example-one{
   margin-bottom: 30px;
   padding: 10px; outline: 1px dashed #CCC; 
@@ -152,3 +188,11 @@ aside > ul {
   padding: 5px;
 }
 
+#resource-jumbo{
+  height: 250px
+}
+
+#logo-and-blurb {
+  margin-left: 25%;
+  margin-right: 25%
+}

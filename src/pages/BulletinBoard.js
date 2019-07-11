@@ -55,93 +55,7 @@ class BulletinBoard extends Component {
     // };
 
     componentDidMount() {
-        this.checkingUser();
         this.loadProfiles();
-    };
-
-    checkingUser = () => {
-        if (!this.props.user.uid) {
-            // console.log("user: ", this.props.user);
-            // console.log("setting timer");
-            setTimeout(this.checkingUser, 500)
-        } else {
-            // this.loadMessages()
-        }
-    };
-
-    loadMessages = () => {
-
-        console.log(this.props.user);
-
-
-        database.ref("/messages/").on("value", snapshot => {
-
-            const messages = snapshot.val();
-            if (!messages) {
-                return
-            } else {
-                // console.log("messages: ", messages);
-                const messagesArray = Object.entries(messages);
-                // console.log("messagesArray: ", messagesArray);
-
-                const messagesToDisplay = [];
-
-                messagesArray.forEach(message => {
-                    console.log("message: ", message);
-
-                    const senderID = message[0];
-                    console.log("senderID: ", senderID);
-
-                    var docRef = db.collection("users").doc(senderID);
-
-                    docRef.get().then(doc => {
-                        if (doc.exists) {
-                            // console.log("Document data:", doc.data());
-                            const senderURL = doc.data().pictureURL;
-
-                            const senderFirstName = doc.data().firstName;
-                            const senderLastName = doc.data().lastName;
-                            const senderName = senderFirstName + " " + senderLastName;
-                            console.log("senderName: ", senderName);
-                            console.log("senderURL: ", senderURL);
-                            const objectifiedMessages = Object.values(message[1]);
-                            const lastMessage = objectifiedMessages[(objectifiedMessages.length - 1)].message
-                            console.log("last message: ", lastMessage)
-
-                            const messageBoardMessage = {
-                                senderUID: senderID,
-                                senderName: senderName,
-                                senderPicture: senderURL,
-                                lastMessage: lastMessage
-                            };
-
-                            messagesToDisplay.push(messageBoardMessage);
-
-                            // console.log("messagesToDisplay: ", messagesToDisplay)
-
-                            this.setState({
-                                messagesToDisplay: messagesToDisplay
-                            });
-
-                            console.log("state.messagesToDisplay: ", this.state.messagesToDisplay)
-
-                        } else {
-                            // doc.data() will be undefined in this case
-                            console.log("No such document!");
-                        }
-                    }).catch(error => {
-                        console.log("Error getting document:", error);
-                    });
-
-
-                });
-
-
-
-                // this.grabMessageSender();
-
-            }
-        });
     };
 
     openChat = event => {
@@ -188,53 +102,61 @@ class BulletinBoard extends Component {
 
         database.ref(query).on("value", snapshot => {
 
-            
+
             const messages = snapshot.val();
             console.log("snapshot: ", messages);
+
             if (messages) {
 
-            const chatsToState = [];
+                const chatsToState = [];
 
-            const messagesArray = Object.entries(messages);
-            // console.log("messagesArray: ", messagesArray);
+                const messagesArray = Object.entries(messages);
+                // console.log("messagesArray: ", messagesArray);
 
-            messagesArray.forEach(message => {
-                // console.log("message: ", message[1])
+                messagesArray.forEach(message => {
+                    // console.log("message: ", message[1])
 
-                if (message[1].senderID !== this.props.user.uid) {
-                    const chatToDisplay = {
-                        author: "them",
-                        type: "text",
-                        data: {
-                            text: message[1].message
-                        }
-                    };
-                    // console.log("chatToDisplay: ", chatToDisplay);
-                    chatsToState.push(chatToDisplay)
-                } else {
-                    const chatToDisplay = {
-                        author: "me",
-                        type: "text",
-                        data: {
-                            text: message[1].message
-                        }
-                    };
-                    // console.log("chatToDisplay: ", chatToDisplay);
-                    chatsToState.push(chatToDisplay)
+                    if (message[1].senderID !== this.props.user.uid) {
+                        const chatToDisplay = {
+                            author: "them",
+                            type: "text",
+                            data: {
+                                text: message[1].message
+                            }
+                        };
+                        // console.log("chatToDisplay: ", chatToDisplay);
+                        chatsToState.push(chatToDisplay)
+                    } else {
+                        const chatToDisplay = {
+                            author: "me",
+                            type: "text",
+                            data: {
+                                text: message[1].message
+                            }
+                        };
+                        // console.log("chatToDisplay: ", chatToDisplay);
+                        chatsToState.push(chatToDisplay)
 
-                }
+                    }
 
-                // console.log("chatsToState: ", chatsToState)
+                    // console.log("chatsToState: ", chatsToState)
+                    this.setState({
+                        messageList: chatsToState,
+                        messages: messagesArray,
+                        chatWindowIsOpen: true
+                    });
+                })
+            } else {
+
                 this.setState({
-                    messageList: chatsToState,
-                    messages: messagesArray,
+                    messageList: [],
+                    message: [],
                     chatWindowIsOpen: true
                 });
+            }
+            this.setState({
+                chatWindowIsOpen: true
             })
-        };
-        this.setState({
-            chatWindowIsOpen: true
-        })
         })
     }
 
@@ -383,14 +305,18 @@ class BulletinBoard extends Component {
         db.collection("users").limit(10).get().then(querySnapshot => {
 
             const profileArray = [];
+            const ownSelf = [];
 
             querySnapshot.forEach(doc => {
-                // doc.data() is never undefined for query doc snapshots
                 // console.log(doc.id, " => ", doc.data());
+                if (doc.id === this.props.user.uid) {
+                    ownSelf.push(doc.data())
+                } else {
                 profileArray.push(doc.data())
+                }
 
             });
-
+            console.log("ownSelf: ", ownSelf)
             console.log("profileArray: ", profileArray);
             this.setState({ profiles: profileArray });
             console.log("this.profiles: ", this.state.profiles)
@@ -488,11 +414,11 @@ class BulletinBoard extends Component {
     render() {
         return (
             <>
-            <div>
                 <div>
-                    {/* <NavBar /> */}
+                    <div>
+                        {/* <NavBar /> */}
 
-                    {/* <Modal
+                        {/* <Modal
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         onRequestClose={this.closeModal}
@@ -513,87 +439,95 @@ class BulletinBoard extends Component {
                     </Modal> */}
 
 
-                    <div className="jumbotron jumbotron-fluid" id="jumbotron">
-                        <aside id="intro-aside">
-                            <div className="bg-img card-body text-center">
+                        <div className="jumbotron jumbotron-fluid" id="jumbotron">
+                            <aside id="intro-aside">
+                                <div className="bg-img card-body text-center">
 
-                                <blockquote className="blockquote mb-0">
-                                    To us, family means putting your arms around each other and being there.
-                          </blockquote>
-                                <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
+                                    <blockquote className="blockquote mb-0">
+                                        To us, family means putting your arms around each other and being there.
+                                    </blockquote>
+                                    <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
 
-                                <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
-                      <button type="button" className="btn btn-outline-secondary">Friend Search</button>
+                                    <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
+                                    <button type="button" className="btn btn-outline-secondary">Friend Search</button>
 
-                                <div className="card-body text-center">
-                                    <h5 className="card-title">Volunteer Family Board</h5>
-                                    <p className="card-text" >
-                                        <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
-                                    </p>
-                                    <br />
+                                    <div className="card-body text-center">
+                                        <h5 className="card-title">Volunteer Family Board</h5>
+                                        <p className="card-text" >
+                                            <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
+                                        </p>
+                                        <br />
 
-                                </div>
-                            </div>
-                        </aside>
-                    </div>
-                </div>
-                <br />
-                <br />
-                <br />
-                {/* // <!--Availble Volunteer List--> */}
-                <div className="container">
-                    <div className="row">
-
-                        {this.state.profiles.length ? (
-
-                            this.state.profiles.map(profile => (
-
-                                <div className="col-sm">
-                                    <div className="card" style={{ width: "18rem" }}>
-                                        <img className="card-img-top" src={profile.pictureURL} alt="Profile Image" />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
-                                            <p className="card-text">{profile.about}</p>
-                                            <button
-                                                value={profile.uid}
-                                                photourl={profile.pictureURL}
-                                                name={profile.firstName}
-                                                // button onClick={this.deleteRow.bind(this, id)}
-                                                // button onClick={(e) => this.deleteRow(id, e)}
-                                                onClick={this.openChat}
-                                                className="btn btn-primary"
-                                            >Chat with {profile.firstName}</button>
-                                        </div>
                                     </div>
-                                ))
-
-                            ) : (
-                                    <h3>No Results to Display</h3>
-                                )}
+                                </div>
+                            </aside>
                         </div>
                     </div>
+                    <br />
+                    <br />
+                    <br />
+                    {/* // <!--Availble Volunteer List--> */}
+                    <div className="container-fluid">
 
 
-                <br />
-                <br />
-                <br />
-                <Launcher
-                    agentProfile={{
-                        teamName: this.state.chattingName,
-                        imageUrl: this.state.chattingURL
-                    }}
-                    onMessageWasSent={this._onMessageWasSent.bind(this)}
-                    messageList={this.state.messageList}
-                    showEmoji={false}
-                    handleClick={this.closeChat}
-                    isOpen={this.state.chatWindowIsOpen}
-                />
+                        <div id="myBulletin">
+                            <div className="carousel-inner row w-100 mx-auto">
+
+
+
+
+                                {this.state.profiles.length ? (
+
+                                    this.state.profiles.map(profile => (
+
+                                        <div className="col-sm">
+                                            <div className="card" style={{ width: "18rem" }}>
+                                                <img className="card-img-top" src={profile.pictureURL} alt="Profile Image" />
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
+                                                    <p className="card-text">{profile.about}</p>
+                                                    <button
+                                                        value={profile.uid}
+                                                        photourl={profile.pictureURL}
+                                                        name={profile.firstName}
+                                                        // button onClick={this.deleteRow.bind(this, id)}
+                                                        // button onClick={(e) => this.deleteRow(id, e)}
+                                                        onClick={this.openChat}
+                                                        className="btn btn-sm btn-outline-secondary"
+                                                    >Chat with {profile.firstName}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    ))
+                                ) :
+                                    (
+                                        <h3>No Results to Display</h3>
+                                    )}
+                            </div>
+                        </div>
+                        {/* </div> */}
+                    </div>
+
+
+                    <br />
+                    <br />
+                    <br />
+                    <Launcher
+                        agentProfile={{
+                            teamName: this.state.chattingName,
+                            imageUrl: this.state.chattingURL
+                        }}
+                        onMessageWasSent={this._onMessageWasSent.bind(this)}
+                        messageList={this.state.messageList}
+                        showEmoji={false}
+                        handleClick={this.closeChat}
+                        isOpen={this.state.chatWindowIsOpen}
+                    />
                 </div>
-            </div>
-
-            <Footer />
+                <Footer />
             </>
-                );
+        );
 
     }
 }

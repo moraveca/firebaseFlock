@@ -15,46 +15,76 @@ import DevMyMessages from "./devPages/DevMyMessages";
 import DevLogIn from "./devPages/DevLogIn";
 import DevDetailForm from "./devComponents/DevDetailForm";
 import About from "./pages/About";
+import Resources from "./pages/Resources"
 
 import NavBar from "./components/NavBar";
 
 
 
+function PrivateRoute({ component: Component, ...rest }) {
+  console.log(rest)
+  // debugger
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        rest.user.uid ? (
+          <Component {...props} {...rest} />
+        ) : (
+            <Redirect
+              to={{
+                pathname: "/devlogin",
+                state: { from: props.location }
+              }}
+            />
+          )
+      }
+    />
+  );
+}
+
+
+
 function App() {
   const [user, setUser] = useState({})
-  
+
 
   return (
-    <Router>
+    <>
       <WatchUser setUser={setUser} />
-      <div>
-        <NavBar
-          user={user}
+
+      <Router>
+        <div>
+          <NavBar
+            user={user}
           />
-        <Switch>
-          <Route exact path="/profile" render={(props) => <Profile {...props} user={user} setUser={setUser} />} />
-          <Route exact path="/" render={(props) => <Homepage {...props} user={user} setUser={setUser} />} />
+          <Switch>
+            <Route exact path="/" render={(props) => <Homepage {...props} user={user} setUser={setUser} />} />
 
-          <Route exact path="/seekingboards" render={(props) => <SeekingFamilyBoard {...props} user={user} setUser={setUser} />} />
+            <PrivateRoute exact path="/profile" component={Profile} user={user} setUser={setUser} />
+            <PrivateRoute exact path="/bulletin" component={BulletinBoard} user={user} />} />
 
-          {/* <Route exact path="/signin" render={(props) => <SignIn {...props} user={user} />} /> */}
+            <Route exact path="/seekingboards" render={(props) => <SeekingFamilyBoard {...props} user={user} setUser={setUser} />} />
 
-          <Route exact path="/devlogin" render={(props) => <DevLogIn {...props} user={user} setUser={setUser} />} />
-          <Route exact path="/form" render={(props) => <DevDetailForm {...props} user={user} />} />
-          <Route exact path="/messages" render={(props) => <MessageBoard {...props} user={user} />} />
+            {/* <Route exact path="/signin" render={(props) => <SignIn {...props} user={user} />} /> */}
 
-          <Route exact path="/devmessages" render={(props) => <DevMessages {...props} user={user} />} />
-          <Route exact path="/devprofiles" render={(props) => <DevProfiles {...props} user={user} />} />
+            <Route exact path="/devlogin" render={(props) => <DevLogIn {...props} user={user} setUser={setUser} />} />
+            {/* <Route exact path="/form" render={(props) => <DevDetailForm {...props} user={user} />} /> */}
+            {/* <Route exact path="/messages" render={(props) => <MessageBoard {...props} user={user} />} /> */}
 
-          <Route exact path="/profile" render={(props) => <Profile {...props} user={user} setUser={setUser} />} />
-          <Route exact path="/homepage" render={(props) => <Homepage {...props} user={user} setUser={setUser} />} />
-          <Route exact path="/bulletin" render={(props) => <BulletinBoard {...props} user={user} />} />
-          <Route exact path="/about" render={(props) => <About {...props} user={user} setUser={setUser} />} />
+            {/* <Route exact path="/devmessages" render={(props) => <DevMessages {...props} user={user} />} /> */}
+            {/* <Route exact path="/devprofiles" render={(props) => <DevProfiles {...props} user={user} />} /> */}
 
-          {/* <Route component={NoMatch} /> */}
-        </Switch>
-      </div>
-    </Router>
+            {/* <Route exact path="/profile" render={(props) => <Profile {...props} user={user} setUser={setUser} />} /> */}
+            {/* <Route exact path="/homepage" render={(props) => <Homepage {...props} user={user} setUser={setUser} />} /> */}
+            <Route exact path="/about" render={(props) => <About {...props} user={user} setUser={setUser} />} />
+            <Route exact path="/resources" render={(props) => <Resources {...props} user={user} setUser={setUser} />} />
+
+            {/* <Route component={NoMatch} /> */}
+          </Switch>
+        </div>
+      </Router>
+    </>
   );
 }
 
