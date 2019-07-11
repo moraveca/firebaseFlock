@@ -9,7 +9,7 @@ class About extends Component {
     render() {
         return (
             <div>
-                <div class="jumbotron jumbotron-fluid" id="resource-jumbo">
+                <div class="jumbotron jumbotron-fluid" id="about-jumbo">
                     <div class="container">
                         <div id="logo-box">
                             {/* <a class="navbar-brand" id="logo">

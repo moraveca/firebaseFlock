@@ -24,13 +24,12 @@ code {
 
  #homeLead {
    font-size: 2rem;
-   
  }
 
  #login-box.card {
   padding-bottom: 10px;
-  background-color:transparent;
-  border:none;
+  background-color: transparent;
+  border: none;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-wrap: wrap;
@@ -43,7 +42,7 @@ code {
   margin-bottom: 30px;
   padding: 10px; outline: 1px dashed #CCC; 
   margin: 0 auto;
-  text-align:center;
+  text-align: center;
   max-width: 500;
   padding-bottom: 20px;
 }
@@ -54,18 +53,23 @@ code {
 
 }
 
-div.jumbotron{
+/* div.jumbotron{
 background-color: transparent;
+} */
+.jumbotron  {
 
+  background-color:transparent;
+  font-family: 'Thasadith', sans-serif;
+  margin-bottom: 10px;
 }
+
 #password {
   border-bottom: 5px;
 }
+
 .bg-image {
   width: 50%;
 }
-
-
 
 #logo-box {
   float: left;
@@ -86,7 +90,7 @@ h1 {
 
 
 #resources-box {
-  margin-top: 10px;
+  margin-top: 200px;
   margin-left: 0px;
   width: 600px;
 }
@@ -126,9 +130,14 @@ h3{
   margin-bottom: 20px;
 }
 
+.lead {
+  background: white;
+  opacity: .80;
+}
+
   .row {
     margin: 10px;
-    background-image:url("/beige.jpg");
+    background-image: url("/beige.jpg");
     margin: 0 auto;
     text-align:center;
     background-size: cover;
@@ -145,12 +154,11 @@ h3{
 /* JUMBOTRON */
 
 .jumbotron  {
-
   background-color:transparent;
   font-family: 'Thasadith', sans-serif;
   margin-bottom: 10px;
-
   }
+
 #jumbotron  {
   background: url("/AllLove.png");
   background-size: cover;
@@ -158,26 +166,74 @@ h3{
   margin-bottom: 10px;
   height: 400px;
   }
-  .content{
+
+#jumbotronProfile {
+  padding:30px 15px;
+  height: 600px;
+  margin-top:-170px;  
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("/adventure.jpg");
+  max-width: 100%;
+}
+
+#jumbotronAbout {
+  padding:30px 15px;
+  height: 600px;
+  margin-top:-170px;  
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("/adventure.jpg");
+  max-width: 100%;
+}
+
+#jumbotronResources {
+  padding:30px 15px;
+  height: 600px;
+  margin-top:-170px;  
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("/adventure.jpg");
+  max-width: 100%;
+}
+
+#resource-jumbo {
+  padding:30px 15px;
+  height: 600px;
+  margin-top:-170px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("/dawn.jpg");
+  max-width: 100%;
+}
+
+#about-jumbo{
+  padding:30px 15px;
+  height: 600px;
+  margin-top:-170px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("/love.jpg");
+  max-width: 100%;
+}
+
+.content{
     max-width: 960px;
-    height:auto;
+    height: auto;
     padding-bottom: 2.5rem;
     border: 5px solid #cccc;
     margin: 0 auto;
   }
   
   .container-fluid {
-  position:relative;
-  height: auto;
-  padding-top: 40px;
-  min-height:80vh;
-  margin: 0 auto;
-  background-color: white;
-  font-family: 'Thasadith', sans-serif;
-  
+    position: relative;
+    height: auto;
+    padding-top: 40px;
+    min-height: 80vh;
+    margin: 0 auto;
+    font-family: 'Thasadith', sans-serif
   }
   
-
   #intro-aside {
     width: 100%;
     margin-top: 250px;
@@ -198,6 +254,24 @@ h3{
     color: #29627e;
 }
 
+.lead {
+  background: white;
+  opacity: .80;
+  width: 50%
+}
+
+.leadHomepage {
+  background: transparent;
+  opacity: .80;
+}
+
+.intro {
+  padding:20px;
+}
+
+.my-4{
+  padding: 20px;
+}
 
 aside > p {
     margin: .5rem;
@@ -219,8 +293,6 @@ aside > ul {
  margin-top: 35px;
  position: relative;
  margin-bottom: 10px;
- 
-
 }
 
 .btn .btn-outline-secondary {
@@ -235,11 +307,21 @@ aside > ul {
   padding: 5px;
 }
 
-#resource-jumbo{
-  height: 250px
-}
-
 #logo-and-blurb {
   margin-left: 25%;
   margin-right: 25%
+}
+
+#resource-page {
+  background-image: none
+}
+
+#modal-signup {
+  background-image: none
+
+}
+
+#chat-pics {
+  width: 18rem;
+  /* height: 100px */
 }

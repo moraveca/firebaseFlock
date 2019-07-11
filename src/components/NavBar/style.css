@@ -57,3 +57,7 @@ a.navbar-brand {
   resize: none;
 
 }
+
+.sc-header--img {
+  width: 40%
+}

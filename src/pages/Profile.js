@@ -225,21 +225,27 @@ class Profile extends Component {
       <>
         <div>
           <div>
-
-            <div class="jumbotron jumbotron-fluid" id="resource-jumbo">
-              <div class="container">
-                <div id="logo-box">
-                  {/* <a class="navbar-brand" id="logo">
-                                <img src="Flock-transparent.png" id="small-logo" alt="Flock logo" />
-                            </a> */}
-                  <div id="resources-box">
-                    <h1>Profile</h1>
-                    <p></p>
-                  </div>
+            <div>
+              <div className="jumbotron" id="jumbotronProfile">
+                <div className="justified">
+                  <aside id="intro-aside">
+                  <div className="lead">
+                  <blockquote>
+                    <h3>“Have a big enough heart to love unconditionally,
+                      and a broad enough mind to embrace the differences
+                      that make each of us unique."</h3>-D.B. Harrop</blockquote></div>
+                  </aside>
                 </div>
               </div>
+                {/* <div className="text-center">
+                  <form className="form-inline"  action="Resource.html">
+                  <button className="btn-lg btn-secondary" id="Search">Resources</button>
+                </form>
+                  <button type="button" className="btn btn-outline-secondary" id="Search">Chat Room</button>&nbsp;&nbsp;
+      
+                  <button type="button" className="btn btn-outline-secondary"id="Search">Friend Search</button>
+                </div> */}
             </div>
-
           </div>
 
           <div className="container-fluid">
@@ -270,7 +276,7 @@ class Profile extends Component {
                 <div className="text-center">
 
 
-                  <p> Connect with me at the following..</p>
+                  <p> Connect at the following...</p>
                   <ul className="nav nav-pills flex-column">
 
                     <li className="nav-item" >
@@ -285,15 +291,13 @@ class Profile extends Component {
               </div>
 
 
-              <div className="container-fluid">
+              <div className="col-sm-8">
                 <div className="row">
 
                   <h1>About Me</h1>
                 </div>
-                <br></br>
+                <br />
                 <div className="content">
-
-
 
                   <h2>Who I am:</h2>
                   <div id="example-one" >
@@ -302,11 +306,6 @@ class Profile extends Component {
 
 
                   <form id="example-one">
-                    {/* <style scoped>
-              #example-one { margin-bottom: 30px; }
-              [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
-              [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
-            </style> */}
 
                     <input value={this.state.about}
                       name="about"
@@ -314,24 +313,20 @@ class Profile extends Component {
                       type="text"
                       placeholder="Tell us about yourself!">
                     </input>
-                    <br></br>
-                    <br></br>
+                    <br />
+                    <br />
                   </form>
-                  <br></br>
-                  <button onClick={this.handleFormSubmit}>Submit Changes</button>
-
-                  <br></br>
                   <br />
-
+                  <button className="btn btn-outline-secondary" onClick={this.handleFormSubmit}>Submit Changes</button>
                   <br />
-
-
                   <br />
-                  <h2>Ways I can help:</h2>
+                  <br />
+                  <br />
+                  {/* <h2>Ways I can help:</h2>
                   <div id="example-one" contenteditable="true">
                     <p>edit here.. </p>
 
-                  </div>
+                  </div> */}
                 </div>
 
 

@@ -493,7 +493,7 @@ class BulletinBoard extends Component {
 
                                         <div className="col-sm">
                                             <div className="card" style={{ width: "18rem" }}>
-                                                <img className="card-img-top" src={profile.pictureURL} alt="Profile Image" />
+                                                <img className="card-img-top" id="chat-pics" src={profile.pictureURL} alt="Profile Image" />
                                                 <div className="card-body">
                                                     <h5 className="card-title">{profile.firstName} {profile.lastName}</h5>
                                                     <p className="card-text">{profile.about}</p>

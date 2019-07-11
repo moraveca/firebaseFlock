@@ -90,26 +90,29 @@ class Homepage extends Component {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
         if (this.state.password != this.state.passwordCheck) {
-            return alert("Your passwords don't match...")
+            return alert("Your passwords don't match, try retyping them.")
+        } else {
+            this.logInFirst(this.thenSetProfile);
+
+            this.setState({
+                email: "",
+                password: "",
+                passwordCheck: "",
+                firstName: "",
+                lastName: "",
+                selectedOption: "seeking",
+                modalIsOpen: false
+            });
+
+
         }
 
-        // if (!this.state.email) {
-        //     return alert("Fill out your email please!");
-        // } else if (this.state.password.length < 6) {
-        //     return alert("Choose a more secure password");
-        // }
+        // console.log("email: ", this.state.email);
+        // console.log("firstName: ", this.state.firstName);
+        // console.log("lastName: ", this.state.lastName);
+        // console.log("selectedOption: ", this.state.selectedOption);
 
-        console.log("email: ", this.state.email);
-        console.log("firstName: ", this.state.firstName);
-        console.log("lastName: ", this.state.lastName);
-        console.log("selectedOption: ", this.state.selectedOption);
-
-        this.logInFirst(this.thenSetProfile);
-
-        this.setState({
-            email: "",
-            password: ""
-        });
+        
 
 
     };
@@ -197,7 +200,7 @@ class Homepage extends Component {
                             <div className="title_container">
                                 <h2> Registration Form </h2>
                             </div>
-                            <div className="row clearfix">
+                            <div className="row clearfix" id="modal-signup">
                                 <div className="">
 
                                     {/* //   <input
@@ -233,7 +236,7 @@ class Homepage extends Component {
                                                 placeholder="Re-type Password"
                                                 required />
                                         </div>
-                                        <div className="row clearfix">
+                                        <div className="row clearfix" id="modal-signup">
                                             <div className="col_half">
                                                 <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
                                                     <input value={this.state.firstName}
@@ -296,7 +299,7 @@ class Homepage extends Component {
                         <div className="card text-center">
                             <div className="homePage">
 
-                                <p className="lead"><h2 id="homeLead">An app that links volunteer family and those seeking family</h2></p>
+                                <div className="leadHomepage"><h2 id="homeLead">An app that links volunteer family and those seeking family</h2></div>
                                 <br></br>
                                 <div className="bg-img">
 
@@ -305,7 +308,7 @@ class Homepage extends Component {
                                             <button
                                                 onClick={this.openModal}
                                                 href="#"
-                                                className="btn btn-lg btn-outline-primary">Sign Up Here!</button>
+                                                className="btn btn-lg btn-secondary">Sign Up Here!</button>
                                             <br />
                                             <br />
                                             <form>
