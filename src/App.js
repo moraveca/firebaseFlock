@@ -57,6 +57,7 @@ function App() {
         <div>
           <NavBar
             user={user}
+            url={user.photoURL}
           />
           <Switch>
             <Route exact path="/" render={(props) => <Homepage {...props} user={user} setUser={setUser} />} />

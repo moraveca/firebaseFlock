@@ -5,7 +5,8 @@ import { signOut } from "../../api/firebase/auth";
 import { userInfo } from "os";
 
 
-function NavBar(props) {
+function NavBar({url, ...props}) {
+
   return (
 
 
@@ -25,7 +26,7 @@ function NavBar(props) {
                       </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <Link className="dropdown-item" to="/profile">My Profile</Link>
-            <Link className="dropdown-item" to="/bulletin">My Messages</Link>
+            <Link className="dropdown-item" to="/bulletin">Chat Room</Link>
           </div>
         </li>
         <li className="nav-item">
@@ -34,17 +35,28 @@ function NavBar(props) {
       </ul>
       <nav className="navbar navbar-light bg-light" >
         <form className="form-inline">
-          {props.user.uid && 
-          <ul className="nav justify-content-end" >
-            <li className="nav-item">
-          <img src={props.user.photoURL} alt="Smiley face" height="42" width="42" />
-          </li>
-          <li className="nav-item">
-            <div>    </div>
-            </li>
-          <button className="btn btn-sm btn-outline-secondary"
-          onClick={signOut}>Logout</button>
-          </ul>
+          {props.user.uid && url &&
+            <ul className="nav justify-content-end" >
+              <li className="nav-item">
+                <img src={url} alt="Smiley face" height="42" width="42" />
+              </li>
+              <li className="nav-item">
+              </li>
+              <button className="btn btn-sm btn-outline-secondary"
+                onClick={signOut}>Logout</button>
+            </ul>
+          }
+          {props.user.uid && !url &&
+            <ul className="nav justify-content-end" >
+              <li className="nav-item">
+                <img src="avatar.png" alt="Smiley face" height="42" width="42" />
+              </li>
+              <li className="nav-item">
+              </li>
+              <button className="btn btn-sm btn-outline-secondary"
+                onClick={signOut}>Logout</button>
+            </ul>
+
           }
         </form>
       </nav>

@@ -115,6 +115,12 @@ class Profile extends Component {
 
                 this.loadPicture();
 
+                this.props.setUser({
+                  ...this.props.user,
+                  photoURL: this.props.user.photoURL
+                }
+                )
+
                 // const photoURL = response.data.photoURL;
                 // console.log("response.data.photoURL: ", photoURL)
                 // if (photoURL) {
@@ -220,15 +226,18 @@ class Profile extends Component {
         <div>
           <div>
 
-            <div className="jumbotron">
-              <h1 className="display-4">Hello, world!</h1>
-              <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-              <hr className="my-4" />
-              <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-              <form className="form-inline" action="Resource.html">
-                <button className="btn btn-lg btn-outline-secondary">Resources</button>
-              </form>
-
+            <div class="jumbotron jumbotron-fluid" id="resource-jumbo">
+              <div class="container">
+                <div id="logo-box">
+                  {/* <a class="navbar-brand" id="logo">
+                                <img src="Flock-transparent.png" id="small-logo" alt="Flock logo" />
+                            </a> */}
+                  <div id="resources-box">
+                    <h1>Profile</h1>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -244,8 +253,8 @@ class Profile extends Component {
                   maxFileSize={5242880}
                 />}
                 {this.state.picture &&
-                  <div className="card" style={{width: "19rem;"}}>
-                    <img className="card-img-top" src={this.state.picture} alt="Profile Picture"/>
+                  <div className="card" style={{ width: "19rem;" }}>
+                    <img className="card-img-top" src={this.state.picture} alt="Profile Picture" />
                     <div className="card-body">
                       <p className="card-text">My Picture</p>
                       <button className="btn btn-sm btn-outline-secondary"
