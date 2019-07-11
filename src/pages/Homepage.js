@@ -300,7 +300,9 @@ class Homepage extends Component {
                             <div className="homePage">
 
                                 <div className="leadHomepage"><h2 id="homeLead">An app that links volunteer family and those seeking family</h2></div>
-                                <br></br>
+                                <br />
+                                <br />
+
                                 <div className="bg-img">
 
                                     <div className="card" id="login-box">
@@ -311,6 +313,10 @@ class Homepage extends Component {
                                                 className="btn btn-lg btn-secondary">Sign Up Here!</button>
                                             <br />
                                             <br />
+                                            <br />
+                                            <br />
+                                            <br />
+
                                             <form>
                                                 <p className="card-title"><strong>Already a member? Log in here.</strong></p>
                                                 <div id="email-header">Email address</div>

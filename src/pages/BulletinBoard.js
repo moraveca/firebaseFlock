@@ -454,10 +454,10 @@ class BulletinBoard extends Component {
                             <aside id="intro-aside">
                                 <div className="bg-img card-body text-center">
 
-                                    <blockquote className="blockquote mb-0">
+                                    {/* <blockquote className="blockquote mb-0">
                                         To us, family means putting your arms around each other and being there.
-                                    </blockquote>
-                                    <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
+                                    </blockquote> */}
+                                    {/* <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer> */}
 
                                     {/* <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
                                     <button type="button" className="btn btn-outline-secondary">Friend Search</button> */}

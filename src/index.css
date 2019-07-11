@@ -137,7 +137,7 @@ h3{
 
   .row {
     margin: 10px;
-    background-image: url("/beige.jpg");
+    /* background-image: url("/beige.jpg"); */
     margin: 0 auto;
     text-align:center;
     background-size: cover;
@@ -160,7 +160,7 @@ h3{
   }
 
 #jumbotron  {
-  background: url("/AllLove.png");
+  background: url("/chat.png");
   background-size: cover;
   font-family: 'Thasadith', sans-serif;
   margin-bottom: 10px;
