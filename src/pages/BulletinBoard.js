@@ -305,14 +305,25 @@ class BulletinBoard extends Component {
         db.collection("users").limit(10).get().then(querySnapshot => {
 
             const profileArray = [];
+
             const ownSelf = [];
 
             querySnapshot.forEach(doc => {
                 // console.log(doc.id, " => ", doc.data());
                 if (doc.id === this.props.user.uid) {
                     ownSelf.push(doc.data())
+                } else if (!doc.data().pictureURL) {
+                    console.log(doc.data().firstName + " has no picture!");
+
+                    const target = doc.data() ;
+                    const source = { pictureURL: "avatar.png" };
+
+                    const returnedTarget = Object.assign(target, source);
+                    console.log("returnedTarget: ", returnedTarget)
+                    profileArray.push(returnedTarget)
+
                 } else {
-                profileArray.push(doc.data())
+                    profileArray.push(doc.data())
                 }
 
             });
@@ -448,17 +459,17 @@ class BulletinBoard extends Component {
                                     </blockquote>
                                     <footer className="blockquote-footer"><cite title="Source Title">Barbara Bush</cite></footer>
 
-                                    <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
-                                    <button type="button" className="btn btn-outline-secondary">Friend Search</button>
+                                    {/* <button type="button" className="btn btn-outline-secondary">Volunteer Search</button>&nbsp;&nbsp;
+                                    <button type="button" className="btn btn-outline-secondary">Friend Search</button> */}
 
-                                    <div className="card-body text-center">
+                                    {/* <div className="card-body text-center">
                                         <h5 className="card-title">Volunteer Family Board</h5>
                                         <p className="card-text" >
                                             <p>To us, family means putting your arms about each other and being there. -Barbara Bush</p>
                                         </p>
                                         <br />
 
-                                    </div>
+                                    </div> */}
                                 </div>
                             </aside>
                         </div>

@@ -78,7 +78,11 @@ class Homepage extends Component {
 
     handleSignIn = event => {
         event.preventDefault();
-        signIn(this.state.email, this.state.password)
+        signIn(this.state.email, this.state.password);
+        this.setState({
+            email: "",
+            password: ""
+        })
 
     }
 
@@ -302,7 +306,7 @@ class Homepage extends Component {
                                         <button
                                             onClick={this.openModal}
                                             href="#"
-                                            className="btn btn-primary">Sign Up Here!</button>
+                                            className="btn btn-lg btn-outline-primary">Sign Up Here!</button>
                                         <br />
                                         <br />
                                         <form>
