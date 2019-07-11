@@ -33,7 +33,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         ) : (
             <Redirect
               to={{
-                pathname: "/devlogin",
+                pathname: "/",
                 state: { from: props.location }
               }}
             />

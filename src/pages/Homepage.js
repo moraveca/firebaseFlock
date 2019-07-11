@@ -294,53 +294,52 @@ class Homepage extends Component {
                 <div>
                     <div>
                         <div className="card text-center">
-                            <br></br>
-                            <p className="lead">An app that links volunteer family and those seeking family</p>
-                            <div className="bg-img">
+                            <div className="homePage">
 
+                                <p className="lead"><h2 id="homeLead">An app that links volunteer family and those seeking family</h2></p>
+                                <br></br>
+                                <div className="bg-img">
 
-                            </div>
-                            <div className="jumbotron">
-                                <div className="card" id="login-box">
-                                    <div className="card-body">
-                                        <button
-                                            onClick={this.openModal}
-                                            href="#"
-                                            className="btn btn-lg btn-outline-primary">Sign Up Here!</button>
-                                        <br />
-                                        <br />
-                                        <form>
-                                            <p className="card-title"><strong>Already a member? Log in here.</strong></p>
-                                            <div id="email-header">Email address</div>                                            
-                                            <input 
-                                                value={this.state.email}
-                                                onChange={this.handleInputChange}
-                                                type="email"
-                                                name="email"
-                                                id="email"
-                                                className="box" />
-                                            <br>
-                                            </br>
-                                            <div id="password-header">Password</div>
-                                            <input
-                                                value={this.state.password}
-                                                onChange={this.handleInputChange}
-                                                type="password"
-                                                name="password"
-                                                id="password"
-                                                className="box" />
-                                            <br>
-                                            </br>
-                                            <div id="enter-box">
+                                    <div className="card" id="login-box">
+                                        <div className="card-body">
+                                            <button
+                                                onClick={this.openModal}
+                                                href="#"
+                                                className="btn btn-lg btn-outline-primary">Sign Up Here!</button>
+                                            <br />
+                                            <br />
+                                            <form>
+                                                <p className="card-title"><strong>Already a member? Log in here.</strong></p>
+                                                <div id="email-header">Email address</div>
+                                                <input
+                                                    value={this.state.email}
+                                                    onChange={this.handleInputChange}
+                                                    type="email"
+                                                    name="email"
+                                                    id="email"
+                                                    className="box" />
                                                 <br>
                                                 </br>
-                                                <button
-                                                    onClick={this.handleSignIn}
-                                                    href="#"
-                                                    className="btn btn-sm btn-outline-secondary">Enter</button>
-                                            </div>
-                                        </form>
-
+                                                <div id="password-header">Password</div>
+                                                <input
+                                                    value={this.state.password}
+                                                    onChange={this.handleInputChange}
+                                                    type="password"
+                                                    name="password"
+                                                    id="password"
+                                                    className="box" />
+                                                <br>
+                                                </br>
+                                                <div id="enter-box">
+                                                    <br>
+                                                    </br>
+                                                    <button
+                                                        onClick={this.handleSignIn}
+                                                        href="#"
+                                                        className="btn btn-sm btn-outline-secondary">Enter</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
