@@ -2,30 +2,33 @@
 
 /* NAVBAR */
 .navbar .navbar-light .bg-light .navbar-expand{
-  background-color: white;
+  background-color: transparent;
 }
 .nav-item{
-  background-color: white;
+  background-color: transparent;
   font-family: 'Thasadith', sans-serif;
   color:black;
+  z-index: 1;
 }
 .collapse .navbar-collapse{
-  background-color: white;
+  background-color: transparent;
   position:center;
 }
 .nav-link {
-  background-color: white;
+  background-color: transparent;
   color:black;
 }
 ul.nav.justify-content-end {
-  background-color: white;
-  margin-top: -400px;
+  background-color: transparent;
+  /* margin-top: -400px; */
 margin: 0 auto;
 }
 a.navbar-brand {
-
+  background-color: transparent;
   font-weight: lighter;
-  position: fixed;
+  position: absolute;
+  z-index: 0;
+
   }
 
 
@@ -53,4 +56,8 @@ a.navbar-brand {
   padding: 1.5rem 0;
   resize: none;
 
+}
+
+.sc-header--img {
+  width: 40%
 }
